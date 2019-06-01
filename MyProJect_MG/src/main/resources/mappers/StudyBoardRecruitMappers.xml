@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Study_recruit">
+
+	<delete id="Stu_recruit_delete_form" parameterType="java.lang.Integer">
+		delete from studyboard_recruit where idx=#{idx} or primary_board_idx=#{idx}
+	</delete>
+
+	<insert id="Stu_recruit_insert_form" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		insert into studyboard_recruit
+		(idx, id, title, content, write_date, age_limit, location, member_num_limit, study_location, study_field, image_location, primary_board_idx, good_cnt, bad_cnt )
+		VALUES
+		((select nvl(max(idx)+1,0) from studyboard_recruit), #{id}, #{title}, #{content}, sysdate, #{age_limit}, #{location}, #{member_num_limit}, #{study_location}, #{study_field}, #{image_location},
+		(select nvl(max(idx)+1,0) from studyboard_recruit), 0, 0)
+	</insert>
+	
+	<update id="Stu_recruit_update_form" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		update studyboard_recruit
+		set title=#{title}, content=#{content}, write_date=sysdate, age_limit=#{age_limit}, location=#{location}, member_num_limit=#{member_num_limit}, study_location=#{study_location}, study_field=#{study_field}
+		where idx=#{idx}
+	</update>
+	
+	<select id="Stu_recruit_select_list" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=primary_board_idx
+	</select>
+	
+	<select id="studyboard_reply_ListAll" parameterType="java.lang.Integer" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		select * from studyboard_recruit  where primary_board_idx=#{idx} order by idx asc
+	</select>
+	
+	<select id="Stu_recruit_select_pluslist" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_Recruit_plusDTO"
+	resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		select * from ( select rownum rnum, b.* from (select * from studyboard_recruit order by idx desc) b ) where rnum between #{start_view} and #{view_point} and idx=primary_board_idx
+	</select>
+	
+	<select id="Stu_recruit_select_readcont" parameterType="Integer"
+	resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		select * from studyboard_recruit where idx=#{idx}
+	</select>
+	
+	<insert id="Stu_recruit_InsertCont_reply" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		insert into studyboard_recruit
+		(idx, primary_board_idx, id, content, write_date, good_cnt, bad_cnt)
+		VALUES
+		((select nvl(max(idx)+1,0) from studyboard_recruit), #{primary_board_idx}, #{id}, #{content}, sysdate, 0, 0)
+	</insert>
+	
+	<insert id="Stu_recruit_InsertCont_re_reply" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		insert into studyboard_recruit
+		(idx, primary_board_idx, reply_board_idx, id, content, write_date, good_cnt, bad_cnt)
+		VALUES
+		((select nvl(max(idx)+1,0) from studyboard_recruit), #{primary_board_idx}, #{reply_board_idx}, #{id}, #{content}, sysdate, 0, 0)
+	</insert>
+	
+	<delete id="studyboard_re_delete" parameterType="java.lang.Integer">
+		delete from studyboard_recruit where idx=#{idx} or reply_board_idx=#{idx}
+	</delete>
+	
+	<update id="studyboard_good_cnt_list_update" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		update studyboard_recruit
+		set good_cnt_list = #{good_cnt_list}, good_cnt = good_cnt+1
+		where idx=#{idx}
+	</update>
+	
+	<update id="studyboard_good_cnt_list_re_update" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		update studyboard_recruit
+		set good_cnt_list = #{good_cnt_list}, good_cnt = good_cnt-1
+		where idx=#{idx}
+	</update>
+	
+	<update id="studyboard_bad_cnt_list_update" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		update studyboard_recruit
+		set bad_cnt_list = #{bad_cnt_list}, bad_cnt = bad_cnt+1
+		where idx=#{idx}
+	</update>
+	
+	<update id="studyboard_bad_cnt_list_re_update" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		update studyboard_recruit
+		set bad_cnt_list = #{bad_cnt_list}, bad_cnt = bad_cnt-1
+		where idx=#{idx}
+	</update>
+
+</mapper>

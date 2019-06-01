@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="members">
+	<insert id="insertmember" parameterType="com.ChaMg.MyProJect.Members.MemberDTO">
+		insert into member
+		(idx, id, password, email, phone, birthday, joindate)
+		values
+		((SELECT NVL(MAX(IDX)+1,0) FROM member), #{id}, #{pw}, #{email}, #{phone}, #{birthday}, sysdate)
+	</insert>
+	
+	<select id="selectAll" resultType="com.ChaMg.MyProJect.Members.MemberDTO">
+		select * from member order by idx desc
+	</select>
+	
+	<select id="selectlogin" 
+		parameterType="com.ChaMg.MyProJect.Members.MemberDTO"
+		resultType="com.ChaMg.MyProJect.Members.MemberDTO">
+		select * from member where email = #{email} and password = #{pw}
+	</select>
+	
+</mapper>

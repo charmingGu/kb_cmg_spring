@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="freeboard">
+
+	<insert id="FreeBoard_InsertCont_mb" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		insert into freeboard
+		(idx, primary_board_idx, id, password, title, content, write_date, good_cnt, bad_cnt, cnt, reply_cnt, mb_check )
+		VALUES
+		((select nvl(max(idx)+1,0) from freeboard), (select nvl(max(idx)+1,0) from freeboard), #{id}, #{password}, #{title}, #{content}, sysdate, 0, 0, 0, 0, 'mb')
+	</insert>
+	
+	<insert id="FreeBoard_InsertCont_nmb" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		insert into freeboard
+		(idx, primary_board_idx, id, password, title, content, write_date, good_cnt, bad_cnt, cnt, reply_cnt, mb_check )
+		VALUES
+		((select nvl(max(idx)+1,0) from freeboard), (select nvl(max(idx)+1,0) from freeboard), #{id}, #{password}, #{title}, #{content}, sysdate, 0, 0, 0, 0, 'nmb')
+	</insert>
+	
+	<insert id="FreeBoard_InsertCont_reply" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		insert into freeboard
+		(idx, primary_board_idx, id, password, content, write_date, good_cnt, bad_cnt, cnt, reply_cnt, mb_check )
+		VALUES
+		((select nvl(max(idx)+1,0) from freeboard), #{primary_board_idx}, #{id}, #{password}, #{content}, sysdate, 0, 0, 0, 0, 'mb')
+	</insert>
+	
+	<insert id="FreeBoard_InsertCont_re_reply" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		insert into freeboard
+		(idx, primary_board_idx, reply_board_idx, id, password, content, write_date, good_cnt, bad_cnt, cnt, reply_cnt, mb_check )
+		VALUES
+		((select nvl(max(idx)+1,0) from freeboard), #{primary_board_idx}, #{reply_board_idx}, #{id}, #{password}, #{content}, sysdate, 0, 0, 0, 0, 'mb')
+	</insert>
+	
+	<update id="FreeBoard_update_mb" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		update freeboard
+		set title = #{title}, content = #{content}, rewrite_date = sysdate
+		where idx=#{idx}
+	</update>
+	
+	<update id="FreeBoard_update_nmb" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		update freeboard
+		set title = #{title}, content = #{content}, password = #{password}, rewrite_date = sysdate
+		where idx=#{idx}
+	</update>
+	
+	<update id="FreeBoard_cnt_update" parameterType="java.lang.Integer">
+		update freeboard
+		set cnt = cnt+1
+		where idx=#{idx}
+	</update>
+	
+	<update id="FreeBoard_re_cnt_update" parameterType="java.lang.Integer">
+		update freeboard
+		set reply_cnt = reply_cnt+1
+		where idx=#{reply_cnt_idx}
+	</update>
+	
+	<update id="FreeBoard_re_cnt_delete_update" parameterType="java.lang.Integer">
+		update freeboard
+		set reply_cnt = reply_cnt-1
+		where idx=#{reply_cnt_idx}
+	</update>
+	
+	<update id="FreeBoard_good_cnt_list_update" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		update freeboard
+		set good_cnt_list = #{good_cnt_list}, good_cnt = good_cnt+1
+		where idx=#{idx}
+	</update>
+	
+	<update id="FreeBoard_good_cnt_list_re_update" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		update freeboard
+		set good_cnt_list = #{good_cnt_list}, good_cnt = good_cnt-1
+		where idx=#{idx}
+	</update>
+	
+	<update id="FreeBoard_bad_cnt_list_update" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		update freeboard
+		set bad_cnt_list = #{bad_cnt_list}, bad_cnt = bad_cnt+1
+		where idx=#{idx}
+	</update>
+	
+	<update id="FreeBoard_bad_cnt_list_re_update" parameterType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		update freeboard
+		set bad_cnt_list = #{bad_cnt_list}, bad_cnt = bad_cnt-1
+		where idx=#{idx}
+	</update>
+	
+	<select id="FreeBoard_ListAll" resultType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		select * from freeboard where idx = primary_board_idx order by idx desc
+	</select>
+	
+	<select id="FreeBoard_reply_ListAll" parameterType="java.lang.Integer" resultType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		select * from freeboard  where primary_board_idx=#{idx} order by idx asc
+	</select>
+	
+	<select id="FreeBoard_ReadCont"
+		parameterType="java.lang.Integer"
+		resultType="com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO">
+		select * from freeboard
+		where idx=#{idx}
+	</select>
+	
+	<delete id="FreeBoard_delete" parameterType="java.lang.Integer">
+		delete from freeboard where idx=#{idx} or primary_board_idx=#{idx}
+	</delete>
+	
+	<delete id="FreeBoard_re_delete" parameterType="java.lang.Integer">
+		delete from freeboard where idx=#{idx} or reply_board_idx=#{idx}
+	</delete>
+	<!-- delete 주의사항. * 필요없음. 넣으면 오류. -->
+</mapper>

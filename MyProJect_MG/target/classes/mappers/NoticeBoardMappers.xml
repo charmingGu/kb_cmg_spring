@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<select id="NoticeBoard_ListAll" resultType="com.ChaMg.MyProJect.NoticeBoard.NoticeBoardDTO">
+		select * from noticeboard
+		order by idx desc
+	</select>
+	
+	<select id="NoticeBoard_readCont" parameterType="java.lang.Integer"
+		resultType="com.ChaMg.MyProJect.NoticeBoard.NoticeBoardDTO">
+		select * from noticeboard
+		where idx=#{idx}
+	</select>
+	
+	<insert id="NoticeBoard_InsertCont" parameterType="com.ChaMg.MyProJect.NoticeBoard.NoticeBoardDTO">
+		insert into noticeboard
+		(idx, id, title, content, write_date, read_cnt)
+		VALUES
+		((select nvl(max(idx)+1,0) from noticeboard), #{id}, #{title}, #{content}, sysdate, 0)
+	</insert>
+	
+	<update id="NoticeBoard_update" parameterType="com.ChaMg.MyProJect.NoticeBoard.NoticeBoardDTO">
+		update noticeboard
+		set title = #{title}, content = #{content}, rewrite_time = sysdate
+		where idx=#{idx}
+	</update>
+	
+	<update id="NoticeBoard_cnt_update" parameterType="java.lang.Integer">
+		update noticeboard
+		set read_cnt = read_cnt+1
+		where idx=#{idx}
+	</update>
+	
+	<delete id="NoticeBoard_delete" parameterType="java.lang.Integer">
+		delete from noticeboard where idx=#{idx}
+	</delete>
+	
+</mapper>
