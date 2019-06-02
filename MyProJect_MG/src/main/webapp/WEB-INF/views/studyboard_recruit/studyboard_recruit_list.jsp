@@ -105,7 +105,7 @@
 					<c:forEach items="${SBRCboardListView}" var="dto">
 						<li class="study_recu_list">
 				          <div class="card" style="width:400px">
-						    <img class="card-img-top" alt="Card image" style="width:100%" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+						    <img class="card-img-top" alt="Card image" style="width:100%" src="${pageContext.request.contextPath}/resources/img/dog-3724261_960_720.jpg" align="middle" style="margin:1px 0;">
 						    <div class="card-body">
 						      <h4 class="card-title">${dto.id}</h4>
 						      <p class="card-text">${dto.title}</p>
