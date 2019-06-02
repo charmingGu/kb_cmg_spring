@@ -67,6 +67,7 @@ $(function () {
 				}//else
 					
 				$(".uploadedList").append(str);	
+				alert(data);
 			},
 		});// ajax
 		
@@ -97,10 +98,9 @@ $(function () {
 			return;
 		}//if
 		
-		var front = fileName.substr(0, 12);
-		var end = fileName.substr(14);
-		
-		return front + end;
+		var primary_link = fileName;
+		alert(primary_link);
+		return primary_link;
 		
 	}//getImageLink
 	
@@ -134,7 +134,7 @@ $(function () {
 
 .fileDrop{
 	width: 100%;
-	height: 200px;
+	height: 150px;
 	border: 1px dotted blue;
 }
 
@@ -202,8 +202,8 @@ small {
 		            <!-- <form id="form1" action="/sample/upload/uploadForm" method="post" enctype="multipart/form-data"> -->
 		            <form id="form" action="/sample/upload/uploadForm" method="post" enctype="multipart/form-data">
 		              <div class="box-body">
-		                <div class="form-group">
-						  <div class="fileDrop"></div>	
+		                <div class="form-group col-sm-6">
+						  <div class="fileDrop"><br>이미지 파일을 올려주세요.</div>	
 		                </div>
 		              </div>
 		              <!-- /.box-body -->
