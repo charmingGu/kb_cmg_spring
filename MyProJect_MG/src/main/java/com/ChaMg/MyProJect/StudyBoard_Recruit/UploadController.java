@@ -149,14 +149,20 @@ private static final Logger logger = LoggerFactory.getLogger(UploadController.cl
 	public ResponseEntity<String> deleteFile(String fileName) throws Exception {
 		
 		logger.info("delete file:" + fileName);
-		
+		String primary_location = fileName.substring(3);
+		String thum_location = fileName.substring(1);
+		System.out.println(thum_location);
+		int base_length = base_uploadPath.length();
 		File deletepath1 = new File(base_uploadPath);
 		File[] deleteFolder1 = deletepath1.listFiles();
 		for (int j = 0; j < deleteFolder1.length; j++  ) {
-			deleteFolder1[j].delete();
+			String img_file = deleteFolder1[j].toString().substring(base_length-3);
+			String thum_file = deleteFolder1[j].toString().substring(base_length-3);
+			System.out.println(thum_file);
+			if(primary_location.equals(img_file) || thum_location.equals(thum_file)) {
+				deleteFolder1[j].delete();
+			}
 		}
-		deletepath1.delete();
-		
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 		
 	}

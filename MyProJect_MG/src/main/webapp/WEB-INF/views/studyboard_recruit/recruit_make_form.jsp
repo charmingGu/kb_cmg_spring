@@ -33,7 +33,7 @@
 		  var study_location = $("#study_location").val();
 		  var study_field = $("#study_field").val();
 		  var study_content = $("#study_content").val();
-		  var image_location = $("#file_up").val();
+		  var image_location = $("#file_up").text();
 		  var recruit_title = $("#recruit_title").val();
 // 		  alert(id);
 // 		  alert(location);
@@ -42,7 +42,7 @@
 // 		  alert(study_location);
 // 		  alert(study_field);
 // 		  alert(content);
-// 		  alert(image_location);
+		  alert(image_location);
 		  $.ajax({
 				type:"POST",
 				url:"/studyboard_recruit/studyboard_recruit_submit",
@@ -106,7 +106,9 @@
 						}//else
 							
 						$(".uploadedList").append(str);	
-						alert(data);
+						var db_imgsrc = data.substring(3);
+						$("#file_up").text(db_imgsrc);
+						alert(db_imgsrc);
 					},
 				});// ajax
 			}//if
@@ -295,6 +297,7 @@
 					            <form id="form" action="/sample/upload/uploadForm" method="post" enctype="multipart/form-data">
 					              <div class="box-body">
 					                <div class="form-group col-sm-6">
+					                  <h6 style="display:none" name="id" id="file_up"></h6>
 									  <div class="fileDrop" STRC_id="${sessionScope.mb_db.id}"><br>이미지 파일을 올려주세요.<h1>+</h1></div>
 					                </div>
 					              </div>
