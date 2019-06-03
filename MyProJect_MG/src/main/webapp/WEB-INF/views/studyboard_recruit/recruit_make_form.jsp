@@ -24,6 +24,7 @@
   
  <script>
 	 $(document).ready(function(){
+		var imgupload_check=false;
 	  $("#submit").click(function(){
 		  var id = $("#id").text();
 		  var location = $("#location").val();
@@ -63,48 +64,56 @@
 		});
 		
 		$(".fileDrop").on("drop", function(event){
-			event.preventDefault();
-			
-			var files = event.originalEvent.dataTransfer.files;
-			
-			var file = files[0];
-			
-			//console.log(file);
-			
-			var formData = new FormData(); // HTML5
-			var id = $("#id").text();
-			formData.append("file", file);
-			formData.append("id", id);
-			
-			$.ajax({
-				url: '/sample/upload/uploadAjax',
-				data: formData,
-				dataType: 'text',
-				processData: false,
-				contentType: false,
-				type: 'POST',
-				success: function(data){
-					//alert(data);
-					//서버로 파일을 전송한 다음에 그 파일을 다시 받아온다.?
-					
-					//이미지 인경우 썸네일을 보여준다.
-					if(checkImageType(data)){
-						str = "<div class='sumb'>"
-							+ "<a href='/sample/upload/displayFile?fileName=" + getImageLink(data) + "'>"
-							+ "<img src='/sample/upload/displayFile?fileName=" + data + "'/>"
-							+ "</a>"
-							+ "<small data-src='" + data + "'>X</small></div>";
-					}else {
-						str = "<div class='sumb'>"
-							+ "<a href='/sample/upload/displayFile?fileName=" + data + "'>"
-							+ getOriginalName(data) + "</a>"
-							+ "<small data-src='" + data + "'>X</small></div>";
-					}//else
+			if(imgupload_check==false){
+				alert("false");
+				event.preventDefault();
+				
+				var files = event.originalEvent.dataTransfer.files;
+				
+				var file = files[0];
+				
+				//console.log(file);
+				
+				var formData = new FormData(); // HTML5
+				var id = $("#id").text();
+				formData.append("file", file);
+				formData.append("id", id);
+				imgupload_check=true;
+				
+				$.ajax({
+					url: '/sample/upload/uploadAjax',
+					data: formData,
+					dataType: 'text',
+					processData: false,
+					contentType: false,
+					type: 'POST',
+					success: function(data){
+						//alert(data);
+						//서버로 파일을 전송한 다음에 그 파일을 다시 받아온다.?
 						
-					$(".uploadedList").append(str);	
-					alert(data);
-				},
-			});// ajax
+						//이미지 인경우 썸네일을 보여준다.
+						if(checkImageType(data)){
+							str = "<div class='sumb'>"
+								+ "<a href='/sample/upload/displayFile?fileName=" + getImageLink(data) + "'>"
+								+ "<img src='/sample/upload/displayFile?fileName=" + data + "'/>"
+								+ "</a>"
+								+ "<small data-src='" + data + "'>삭제</small></div>";
+						}else {
+							str = "<div class='sumb'>"
+								+ "<a href='/sample/upload/displayFile?fileName=" + data + "'>"
+								+ getOriginalName(data) + "</a>"
+								+ "<small data-src='" + data + "'>삭제</small></div>";
+						}//else
+							
+						$(".uploadedList").append(str);	
+						alert(data);
+					},
+				});// ajax
+			}//if
+			else{
+				alert("이미지는 하나만 올려주세요.");
+				return false;
+			}
 			
 		});
 		
@@ -153,6 +162,7 @@
 				data: {fileName:$(this).attr("data-src")},
 				dataType: "text",
 				success : function(result){
+					imgupload_check=false;
 					if(result == 'deleted'){
 						//alert("deleted");
 						$(".sumb").remove();
