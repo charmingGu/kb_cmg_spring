@@ -100,8 +100,8 @@ private static final Logger logger = LoggerFactory.getLogger(UploadController.cl
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(base_uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.CREATED);
 	}
 	
-	//화면에 저장된 파일을 보여주는 컨트롤러 /년/월/일/파일명 형태로 입력 받는다.
-	// displayFile?fileName=/년/월/일/파일명
+	//화면에 저장된 파일을 보여주는 컨트롤러
+	// displayFile?fileName=
 	@ResponseBody
 	@RequestMapping(value="/sample/upload/displayFile", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
