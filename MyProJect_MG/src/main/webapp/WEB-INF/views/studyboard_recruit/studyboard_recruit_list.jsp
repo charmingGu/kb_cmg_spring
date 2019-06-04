@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 
 <html>
@@ -41,13 +42,18 @@
 	   	    	var content = "";
 	   	    	var length = list.length;
 	   	    	if(length == 0){
-	   	    		alert("마지막춰럼 마마마마지막춰럼");
+	   	    		alert("마지막입니다.");
 	   	    	}
 	   	    	for(i=0; i<list.length; i++){
 	   	    		var result_list = list[i];
 		   	    		content += '<li class="study_recu_list">';
 		   	   	    	content += '<div class="card" style="width:400px">';
-		   	   	    	content += '<img class="card-img-top" alt="Card image" style="width:100%" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">';
+		   	   	    	<c:if test="${dto.image_location ne null}">
+		   	   	  			content += '<img class="card-img-top" alt="Card image" style="width:100%;" height="250" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">';
+		   	   	    	</c:if>
+				   	   	<c:if test="${dto.image_location eq null}">
+				   	 		content += '<img class="card-img-top" alt="Card image" style="width:100%" height="250" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">';
+		 	   	    	</c:if>
 		   	 	    	content += '<div class="card-body">';
 		   	 	    	content += '<h4 class="card-title">'+result_list.id+'</h4>';
 		   	 	    	content += '<p class="card-text">'+result_list.title+'</p>';
@@ -105,7 +111,12 @@
 					<c:forEach items="${SBRCboardListView}" var="dto">
 						<li class="study_recu_list">
 				          <div class="card" style="width:400px">
-						    <img class="card-img-top" alt="Card image" style="width:100%" src="${pageContext.request.contextPath}/resources/img/dog-3724261_960_720.jpg" align="middle" style="margin:1px 0;">
+				          	<c:if test="${dto.image_location ne null}">
+						    	<img class="card-img-top" alt="Card image" style="width:100%;" height="250" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
+				          	</c:if>
+				          	<c:if test="${dto.image_location eq null}">
+						    	<img class="card-img-top" alt="Card image" style="width:100%" height="250" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+				          	</c:if>
 						    <div class="card-body">
 						      <h4 class="card-title">${dto.id}</h4>
 						      <p class="card-text">${dto.title}</p>
