@@ -18,7 +18,8 @@
 	
 	<update id="Stu_recruit_update_form" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
 		update studyboard_recruit
-		set title=#{title}, content=#{content}, write_date=sysdate, age_limit=#{age_limit}, location=#{location}, member_num_limit=#{member_num_limit}, study_location=#{study_location}, study_field=#{study_field}
+		set title=#{title}, content=#{content}, write_date=sysdate, age_limit=#{age_limit}, location=#{location}, member_num_limit=#{member_num_limit}, study_location=#{study_location}, study_field=#{study_field},
+		image_location=#{image_location}
 		where idx=#{idx}
 	</update>
 	

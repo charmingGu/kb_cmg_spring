@@ -25,6 +25,11 @@
   
  <script>
 	 $(document).ready(function(){
+		 var imgupload_check = false;
+		 var temp_img_check = $("#file_up").text();
+		 if(temp_img_check != ""){
+			 imgupload_check = true;
+		 }
 	 
 	  $("#submit").click(function(){
 		  var id = $("#id").text();
@@ -35,7 +40,7 @@
 		  var study_location = $("#study_location").val();
 		  var study_field = $("#study_field").val();
 		  var study_content = $("#study_content").val();
-		  var image_location = $("#file_up").val();
+		  var image_location = $("#file_up").text();
 		  var recruit_title = $("#recruit_title").val();
 // 		  alert(id);
 // 		  alert(location);
@@ -44,7 +49,7 @@
 // 		  alert(study_location);
 // 		  alert(study_field);
 // 		  alert(content);
-// 		  alert(image_location);
+		  alert(image_location);
 		  $.ajax({
 				type:"POST",
 				url:"/studyboard_recruit/studyboard_recruit_update",
@@ -153,19 +158,19 @@
 			$(".uploadedList").on("click", "small", function(event){
 				
 				var that = $(this);
-				
+				var id = $("#id").text();
 				alert($(this).attr("data-src"));
 				
 				$.ajax({
-					url: "/sample/upload/deleteFile",
+					url: "/sample/upload/updateFile",
 					type: "post",
-					data: {fileName:$(this).attr("data-src")},
-					dataType: "text",
+					data: {fileName:$(this).attr("data-src"), id:id},
 					success : function(result){
 						imgupload_check=false;
 						if(result == 'deleted'){
 							//alert("deleted");
 							$(".sumb").remove();
+							$("#file_up").text("");
 						}//
 					},
 				});
@@ -173,6 +178,23 @@
 			});//uploadedList
 	 	});
 </script>
+
+<style>
+
+	.fileDrop{
+		width: 100%;
+		height: 150px;
+		border: 1px dotted blue;
+	}
+	
+	small {
+		margin-left: 3px;
+		font-weight: bold;
+		color: gray;
+	}
+
+</style>
+
 </head>
 
 <body id="page-top">
@@ -281,7 +303,7 @@
 				            <form id="form" action="/sample/upload/uploadForm" method="post" enctype="multipart/form-data">
 				              <div class="box-body">
 				                <div class="form-group col-sm-6">
-				                  <h6 style="display:none" name="id" id="file_up"></h6>
+				                  <h6 style="display:none" name="img" id="file_up">${change_rc_cont.image_location}</h6>
 								  <div class="fileDrop" STRC_id="${sessionScope.mb_db.id}"><br>이미지 파일을 올려주세요. 수정을 원하시면 기존 이미지 삭제 후 다시 업로드 해주세요.<h1>+</h1></div>
 				                </div>
 				              </div>
@@ -291,8 +313,10 @@
 				                <!-- <button type="submit" class="btn btn-warning">제출</button> -->
 				                <div class="uploadedList">
 				                <c:if test="${change_rc_cont.image_location ne null}">
-							    	<img class="card-img-top" alt="Card image" style="width:10%;" src="<spring:url value="/img/STRC/${change_rc_cont.id}/s_${change_rc_cont.image_location}"/>" align="middle" style="margin:1px 0;">
-							    	<div class="sumb"><small data-src="/s_${change_rc_cont.image_location}">삭제</small></div>
+					                <div class="sumb">
+								    	<img class="card-img-top" alt="Card image" style="width:10%;" src="<spring:url value="/img/STRC/${change_rc_cont.id}/s_${change_rc_cont.image_location}"/>" align="middle" style="margin:1px 0;">
+								    	<small data-src="/s_${change_rc_cont.image_location}">삭제</small>
+							    	</div>
 					          	</c:if>
 					          	
 				                </div>
