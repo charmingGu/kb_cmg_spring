@@ -48,12 +48,12 @@
 	   	    		var result_list = list[i];
 		   	    		content += '<li class="study_recu_list">';
 		   	   	    	content += '<div class="card" style="width:400px">';
-		   	   	    	<c:if test="${dto.image_location ne null}">
-		   	   	  			content += '<img class="card-img-top" alt="Card image" style="width:100%;" height="250" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">';
-		   	   	    	</c:if>
-				   	   	<c:if test="${dto.image_location eq null}">
-				   	 		content += '<img class="card-img-top" alt="Card image" style="width:100%" height="250" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">';
-		 	   	    	</c:if>
+		   	   	    	if(result_list.image_location != null){
+		   	   	  			content += '<img class="card-img-top" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/'+result_list.id+'/'+result_list.image_location+'"/>" align="middle" style="margin:1px 0;">';
+		   	   	    	}
+		   	   	    	if(result_list.image_location == null){
+				   	 		content += '<img class="card-img-top" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">';
+		   	   	    	}
 		   	 	    	content += '<div class="card-body">';
 		   	 	    	content += '<h4 class="card-title">'+result_list.id+'</h4>';
 		   	 	    	content += '<p class="card-text">'+result_list.title+'</p>';
@@ -73,6 +73,8 @@
 			display: inline-block;
 		       padding: 10px;
 		}
+/* 		.thumbnail-wrappper  */
+/* 		{ width: 25%; height: 200px; overflow: hidden; } */
 	 </style>
 </head>
 
@@ -110,12 +112,12 @@
 				<ul class="list_count" id="list_count">
 					<c:forEach items="${SBRCboardListView}" var="dto">
 						<li class="study_recu_list">
-				          <div class="card" style="width:400px">
+				          <div class="card" style="width:400px; overflow: hidden;">
 				          	<c:if test="${dto.image_location ne null}">
-						    	<img class="card-img-top" alt="Card image" style="width:100%;" height="250" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
+						    	<img class="card-img-top" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
 				          	</c:if>
 				          	<c:if test="${dto.image_location eq null}">
-						    	<img class="card-img-top" alt="Card image" style="width:100%" height="250" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+						    	<img class="card-img-top" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
 				          	</c:if>
 						    <div class="card-body">
 						      <h4 class="card-title">${dto.id}</h4>
