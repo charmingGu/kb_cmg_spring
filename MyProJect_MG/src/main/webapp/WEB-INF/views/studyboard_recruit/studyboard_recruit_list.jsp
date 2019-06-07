@@ -114,10 +114,10 @@
 						<li class="study_recu_list">
 				          <div class="card" style="width:400px; overflow: hidden;">
 				          	<c:if test="${dto.image_location ne null}">
-						    	<img class="card-img-top" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
+						    	<img class="img-fluid mx-auto d-block" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
 				          	</c:if>
 				          	<c:if test="${dto.image_location eq null}">
-						    	<img class="card-img-top" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+						    	<img class="img-fluid mx-auto d-block" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
 				          	</c:if>
 						    <div class="card-body">
 						      <h4 class="card-title">${dto.id}</h4>

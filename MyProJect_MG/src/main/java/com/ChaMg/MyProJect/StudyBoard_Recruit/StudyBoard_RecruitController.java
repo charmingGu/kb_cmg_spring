@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO;
+
 /**
  * Handles requests for the application home page.
  * 
@@ -51,6 +53,25 @@ public class StudyBoard_RecruitController {
 		plus_number.view_point = view_point;
 		List<StudyBoard_RecruitDTO> SBRC_pluslist = sqlsession.selectList("Stu_recruit_select_pluslist", plus_number);
 		return SBRC_pluslist;
+	}
+	
+	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_join")
+	@ResponseBody
+	public String studyrecruit_join(Locale locale, Model model, 
+			@RequestParam("id") String id,
+			@RequestParam("idx") int idx,
+			HttpServletResponse response) {
+		StudyBoard_RecruitDTO check_list = sqlsession.selectOne("Study_recruit.Stu_recruit_STRQ_list", idx);
+		String [] check_id = null;
+		check_id = check_list.request_list.split(",");
+		for(String array : check_id) {
+			if(array.equals(id)) {
+				return "false";
+			}
+		}
+		check_list.request_list = check_list.request_list+"," + id;
+		sqlsession.update("Study_recruit.Stu_recruit_update_joinlist", check_list);
+		return "true";
 	}
 	
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_form", method = RequestMethod.GET)

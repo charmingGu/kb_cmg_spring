@@ -10,6 +10,8 @@ public class MemberDTO {
 	private String phone;
 	private String birthday;
 	private String joindate;
+	private String request_list;
+	private String studyGroup_list;
 	
 	public String getJoindate() {
 		return joindate;
@@ -59,10 +61,23 @@ public class MemberDTO {
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
+	public String getRequest_list() {
+		return request_list;
+	}
+	public void setRequest_list(String request_list) {
+		this.request_list = request_list;
+	}
+	public String getStudyGroup_list() {
+		return studyGroup_list;
+	}
+	public void setStudyGroup_list(String studyGroup_list) {
+		this.studyGroup_list = studyGroup_list;
+	}
 	@Override
 	public String toString() {
 		return "MemberDTO [idx=" + idx + ", id=" + id + ", pw=" + pw + ", name=" + name + ", email=" + email
-				+ ", phone=" + phone + ", birthday=" + birthday + ", joindate=" + joindate + "]";
+				+ ", phone=" + phone + ", birthday=" + birthday + ", joindate=" + joindate + ", request_list="
+				+ request_list + ", studyGroup_list=" + studyGroup_list + "]";
 	}
 	
 }

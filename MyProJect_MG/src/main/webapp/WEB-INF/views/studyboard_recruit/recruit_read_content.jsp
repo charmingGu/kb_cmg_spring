@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 
 <html>
@@ -35,6 +36,30 @@
 						success: function(result){
 							alert("삭제가 완료되었습니다.");
 							location.href="/studyboard_recruit/studyboard_recruit_list";
+						}
+					});
+				}
+			});
+		 
+		 $("#join_st_member").click(function(){
+				var join_idx = "${read_rc_cont.idx}";
+				var member_id = "${sessionScope.mb_db.id}";
+				var result = confirm('해당 스터디로 신청하시겠습니까?');
+				if(result){
+					alert(join_idx);
+					alert(member_id);
+					$.ajax({
+						type:"POST",
+						url:"/studyboard_recruit/studyboard_recruit_join",
+						data : {idx : join_idx, id : member_id},
+						success: function(result){
+							if(result == "true"){
+								alert("신청이 완료되었습니다.");
+								location.href="/studyboard_recruit/studyboard_recruit_list";
+							}
+							else{
+								alert("이미 신청하셨습니다.");
+							}
 						}
 					});
 				}
@@ -176,6 +201,8 @@
 				<br>
 		          <h1 class="h3 mb-4 text-gray-800" style="text-align:center">자세한 내용</h1>
 		          <hr>
+		          <img class="img-fluid mx-auto d-block" alt="image" src="<spring:url value="/img/STRC/${read_rc_cont.id}/${read_rc_cont.image_location}"/>">
+		          <hr>
 				  <h6 name="id" id="id">모집자 : ${read_rc_cont.id}</h6>
 				  <hr>
 				  <p>제목 : ${read_rc_cont.title}</p>
@@ -202,9 +229,7 @@
 					<button id="delete_button" class="btn btn-danger" idx="${read_rc_cont.idx}">삭제</button>
 				</c:if>
 				<c:if test="${not empty sessionScope.mb_db.id and read_rc_cont.id ne sessionScope.mb_db.id}">
-					<a  href="/studyboard_recruit/studyboard_recruit_list" class="submit">
-						<button class="btn btn-primary">신청</button>
-					</a>
+					<button class="btn btn-primary" id="join_st_member">신청</button>
 				</c:if>
 				<div class="card-body">
 		              	<h6>댓글쓰기</h6>
