@@ -62,16 +62,25 @@ public class StudyBoard_RecruitController {
 			@RequestParam("idx") int idx,
 			HttpServletResponse response) {
 		StudyBoard_RecruitDTO check_list = sqlsession.selectOne("Study_recruit.Stu_recruit_STRQ_list", idx);
-		String [] check_id = null;
-		check_id = check_list.request_list.split(",");
-		for(String array : check_id) {
-			if(array.equals(id)) {
-				return "false";
-			}
+		System.out.println(id);
+		System.out.println(idx);
+		if(check_list.request_list == null) {
+			check_list.request_list = check_list.request_list+"," + id;
+			sqlsession.update("Study_recruit.Stu_recruit_update_joinlist", check_list);
+			return "true";
 		}
-		check_list.request_list = check_list.request_list+"," + id;
-		sqlsession.update("Study_recruit.Stu_recruit_update_joinlist", check_list);
-		return "true";
+		else {
+			String [] check_id = null;
+			check_id = check_list.request_list.split(",");
+			for(String array : check_id) {
+				if(array.equals(id)) {
+					return "false";
+				}
+			}
+			check_list.request_list = check_list.request_list+"," + id;
+			sqlsession.update("Study_recruit.Stu_recruit_update_joinlist", check_list);
+			return "true";
+		}
 	}
 	
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_form", method = RequestMethod.GET)
