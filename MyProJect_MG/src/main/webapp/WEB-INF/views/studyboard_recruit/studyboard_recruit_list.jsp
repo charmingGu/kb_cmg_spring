@@ -49,10 +49,10 @@
 		   	    		content += '<li class="study_recu_list">';
 		   	   	    	content += '<div class="card" style="width:400px">';
 		   	   	    	if(result_list.image_location != null){
-		   	   	  			content += '<img class="card-img-top" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/'+result_list.id+'/'+result_list.image_location+'"/>" align="middle" style="margin:1px 0;">';
+		   	   	  			content += '<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/'+result_list.id+'/'+result_list.image_location+'"/>" align="middle" style="margin:1px 0;">';
 		   	   	    	}
 		   	   	    	if(result_list.image_location == null){
-				   	 		content += '<img class="card-img-top" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">';
+				   	 		content += '<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">';
 		   	   	    	}
 		   	 	    	content += '<div class="card-body">';
 		   	 	    	content += '<h4 class="card-title">'+result_list.id+'</h4>';
@@ -114,10 +114,10 @@
 						<li class="study_recu_list">
 				          <div class="card" style="width:400px; overflow: hidden;">
 				          	<c:if test="${dto.image_location ne null}">
-						    	<img class="img-fluid mx-auto d-block" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
+						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
 				          	</c:if>
 				          	<c:if test="${dto.image_location eq null}">
-						    	<img class="img-fluid mx-auto d-block" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
 				          	</c:if>
 						    <div class="card-body">
 						      <h4 class="card-title">${dto.id}</h4>
@@ -129,7 +129,10 @@
 					</c:forEach>
 				</ul>
 				</div>
-				<div class="col-sm-2" style="height:750px;"><img class="img-fluid" alt="ad" src="https://source.unsplash.com/random/280x750"></div>
+				<div class="col-sm-2 ad" style="height:750px;">
+					<h1 class="adMark" style="text-align: center">광고영역</h1>
+					<img class="img-fluid" alt="ad" src="https://source.unsplash.com/random/280x750">
+				</div>
 			</div>
 	        <div class="row">
 		        <div class="col-sm-10">

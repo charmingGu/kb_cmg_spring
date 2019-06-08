@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -16,7 +16,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - freeboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
       	<a class="nav-link" href="/notice/noticeboard">
 	      	<i class="fas fa-clipboard"></i>
 	        <span>공지사항</span></a>

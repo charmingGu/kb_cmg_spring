@@ -322,7 +322,10 @@
 					<span class="btn btn-primary">취소</span>
 				</a>
           	</div>
-          	<div class="col-sm-2" style="height:750px;"><img class="img-fluid" alt="ad" src="https://source.unsplash.com/random/280x750"></div>
+          	<div class="col-sm-2 ad" style="height:750px;">
+          		<h1 class="adMark" style="text-align: center">광고영역</h1>
+				<img class="img-fluid" alt="ad" src="https://source.unsplash.com/random/280x750">
+          	</div>
           </div>
           
 
