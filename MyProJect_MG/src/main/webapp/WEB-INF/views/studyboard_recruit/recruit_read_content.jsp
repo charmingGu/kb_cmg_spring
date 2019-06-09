@@ -201,7 +201,12 @@
 				<br>
 		          <h1 class="h3 mb-4 text-gray-800" style="text-align:center">자세한 내용</h1>
 		          <hr>
-		          <img class="img-fluid mx-auto d-block" alt="image" src="<spring:url value="/img/STRC/${read_rc_cont.id}/${read_rc_cont.image_location}"/>">
+		          <c:if test="${read_rc_cont.image_location eq null}">
+		          	<img class="img-fluid" alt="image" style="width:100%; height:auto;" align="middle" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg">
+		          </c:if>
+		          <c:if test="${read_rc_cont.image_location ne null}">
+		          	<img class="img-fluid" alt="image" style="width:100%; height:auto;" align="middle" src="<spring:url value="/img/STRC/${read_rc_cont.id}/${read_rc_cont.image_location}"/>">
+		          </c:if>
 		          <hr>
 				  <h6 name="id" id="id">모집자 : ${read_rc_cont.id}</h6>
 				  <hr>

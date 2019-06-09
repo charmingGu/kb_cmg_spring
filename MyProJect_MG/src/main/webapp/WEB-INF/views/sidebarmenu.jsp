@@ -44,7 +44,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">스터디 게시판</h6>
             <a class="collapse-item" href="/studyboard_recruit/studyboard_recruit_list">스터디 모집 게시판</a>
-            <a class="collapse-item" href="/studyboard_request/studyboard_request_list">스터디 신청 게시판</a>
+            <a class="collapse-item" href="/studyboard_MyBoard/studyboard_myrecruit_list">My Study(모집)</a>
+            <a class="collapse-item" href="/studyboard_MyBoard/studyboard_myrequest_list">My Study(신청)</a>
           </div>
         </div>
       </li>
