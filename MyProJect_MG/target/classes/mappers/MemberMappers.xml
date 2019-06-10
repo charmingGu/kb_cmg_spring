@@ -14,10 +14,22 @@
 		select * from member order by idx desc
 	</select>
 	
+	<select id="selectMember" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.Members.MemberDTO">
+		select * from member where id=#{id}
+	</select>
+	
+	<select id="selectStRqBoard" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.Members.MemberDTO">
+		select * from member where id=#{member_id}
+	</select>
+	
 	<select id="selectlogin" 
 		parameterType="com.ChaMg.MyProJect.Members.MemberDTO"
 		resultType="com.ChaMg.MyProJect.Members.MemberDTO">
 		select * from member where email = #{email} and password = #{pw}
 	</select>
+	
+	<update id="update_Request_list" parameterType="com.ChaMg.MyProJect.Members.MemberDTO">
+		update member set request_list = #{request_list} where id=#{id}
+	</update>
 	
 </mapper>

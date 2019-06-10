@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ChaMg.MyProJect.FreeBoard.FreeBoardDTO;
+import com.ChaMg.MyProJect.Members.MemberDTO;
+
 
 /**
  * Handles requests for the application home page.
@@ -37,7 +38,7 @@ public class StudyBoard_RecruitController {
 	 */
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_list")
 	public String studyrecruit_index(Locale locale, Model model) {
-		List<StudyBoard_RecruitDTO> SBRC_list = sqlsession.selectList("Stu_recruit_select_list");
+		List<StudyBoard_RecruitDTO> SBRC_list = sqlsession.selectList("Study_recruit.Stu_recruit_select_list");
 		model.addAttribute("SBRCboardListView", SBRC_list);
 		return "/studyboard_recruit/studyboard_recruit_list";
 	}
@@ -51,7 +52,7 @@ public class StudyBoard_RecruitController {
 		StudyBoard_Recruit_plusDTO plus_number = new StudyBoard_Recruit_plusDTO();
 		plus_number.start_view = start_view;
 		plus_number.view_point = view_point;
-		List<StudyBoard_RecruitDTO> SBRC_pluslist = sqlsession.selectList("Stu_recruit_select_pluslist", plus_number);
+		List<StudyBoard_RecruitDTO> SBRC_pluslist = sqlsession.selectList("Study_recruit.Stu_recruit_select_pluslist", plus_number);
 		return SBRC_pluslist;
 	}
 	
@@ -62,23 +63,30 @@ public class StudyBoard_RecruitController {
 			@RequestParam("idx") int idx,
 			HttpServletResponse response) {
 		StudyBoard_RecruitDTO check_list = sqlsession.selectOne("Study_recruit.Stu_recruit_STRQ_list", idx);
+		MemberDTO member_list_check = sqlsession.selectOne("members.selectMember", id);
 		System.out.println(id);
 		System.out.println(idx);
 		if(check_list.request_list == null) {
 			check_list.request_list = check_list.request_list+"," + id;
+			member_list_check.setRequest_list(member_list_check.getRequest_list()+","+idx);
 			sqlsession.update("Study_recruit.Stu_recruit_update_joinlist", check_list);
+			sqlsession.update("members.update_Request_list", member_list_check);
 			return "true";
 		}
 		else {
 			String [] check_id = null;
+//			String [] member_check_id = null;
 			check_id = check_list.request_list.split(",");
+//			member_check_id = member_list_check.getRequest_list().split(",");
 			for(String array : check_id) {
 				if(array.equals(id)) {
 					return "false";
 				}
 			}
 			check_list.request_list = check_list.request_list+"," + id;
+			member_list_check.setRequest_list(member_list_check.getRequest_list()+","+idx);
 			sqlsession.update("Study_recruit.Stu_recruit_update_joinlist", check_list);
+			sqlsession.update("members.update_Request_list", member_list_check);
 			return "true";
 		}
 	}

@@ -46,6 +46,7 @@
             <a class="collapse-item" href="/studyboard_recruit/studyboard_recruit_list">스터디 모집 게시판</a>
             <a class="collapse-item" href="/studyboard_MyBoard/studyboard_myrecruit_list">My Study(모집)</a>
             <a class="collapse-item" href="/studyboard_MyBoard/studyboard_myrequest_list">My Study(신청)</a>
+            <a class="collapse-item" href="/studyboard_MyBoard/studyboard_mycompleted_list">My Study(완료)</a>
           </div>
         </div>
       </li>

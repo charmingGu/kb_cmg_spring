@@ -1,7 +1,5 @@
 package com.ChaMg.MyProJect.Members;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,6 +39,7 @@ public class MemberController {
 		if( mdto != null && mb_db !=null) {
 			if( mdto.getEmail().equals( mb_db.getEmail() ) ) {
 				session.setAttribute("mb_db", mb_db);
+				session.setAttribute("mb_id", mb_db.getId());
 			}
 		}else {
 			model.addAttribute("logininfo","아이디나 비밀번호를 확인해주세요.");
@@ -52,6 +51,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/logoutProc")
 	public String logoutProc(Model model, HttpSession session) {
 		session.setAttribute("mb_db", null);
+		session.setAttribute("mb_id", null);
 		return "redirect:/";
 	}
 	
