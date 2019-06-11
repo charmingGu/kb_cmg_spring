@@ -120,36 +120,31 @@
 			<div class="row">
 				<div class="col-sm-10">
 				<ul class="list_count" id="list_count">
-					<c:choose>
-						<c:when test="${SBRCboardListView eq null}"></c:when>
-						<c:otherwise>
-							<c:forEach items="${SBRCboardListView}" var="dto">
-								<li class="study_recu_list">
-						          <div class="card" style="width:400px; overflow: hidden;">
-						          	<c:if test="${dto.image_location ne null}">
-								    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
-						          	</c:if>
-						          	<c:if test="${dto.image_location eq null}">
-								    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
-						          	</c:if>
-								    <div class="card-body">
-								      <h4 class="card-title">${dto.id}</h4>
-								      <p class="card-text">${dto.title}</p>
-								      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
-								    </div>
-								    <div class="request_list">
-								    	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${dto.idx}" aria-expanded="true" aria-controls="collapseUtilities">
-					                    	<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
-						                </a>
-								    </div>
-								    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">
-								    	<div class="choice_list" style="margin:3px"><span>hello</span><button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button></div>
-								    </div>
-								  </div>
-								</li>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
+					<c:forEach items="${SBRCboardListView}" var="dto">
+						<li class="study_recu_list">
+				          <div class="card" style="width:400px; overflow: hidden;">
+				          	<c:if test="${dto.image_location ne null}">
+						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
+				          	</c:if>
+				          	<c:if test="${dto.image_location eq null}">
+						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+				          	</c:if>
+						    <div class="card-body">
+						      <h4 class="card-title">${dto.id}</h4>
+						      <p class="card-text">${dto.title}</p>
+						      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
+						    </div>
+						    <div class="request_list">
+						    	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${dto.idx}" aria-expanded="true" aria-controls="collapseUtilities">
+			                    	<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
+				                </a>
+						    </div>
+						    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">
+						    	<div class="choice_list" style="margin:3px"><span>hello</span><button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button></div>
+						    </div>
+						  </div>
+						</li>
+					</c:forEach>
 				</ul>
 				</div>
 				<div class="col-sm-2 ad" style="height:750px;">
