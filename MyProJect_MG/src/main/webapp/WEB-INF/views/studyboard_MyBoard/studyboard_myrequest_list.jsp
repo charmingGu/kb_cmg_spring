@@ -107,12 +107,17 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <c:if test="${not empty sessionScope.mb_db.id}">
-	          <a href="/studyboard_recruit/studyboard_recruit_form">
-		          <button type="button" class="btn btn-primary">모집글 작성!</button>
-	          </a>
-          </c:if>
-          
+<%--           <c:if test="${not empty sessionScope.mb_db.id}"> --%>
+<!-- 	          <a href="/studyboard_recruit/studyboard_recruit_form"> -->
+<!-- 		          <button type="button" class="btn btn-primary">모집글 작성!</button> -->
+<!-- 	          </a> -->
+<%--           </c:if> --%>
+
+			<div class="jumbotron">
+			  <h1>내 신청 게시판 목록보기</h1> 
+			  <p>내가 신청한 스터디 게시판들을 보여줍니다.<br>신청이 승인되면 완료 게시판으로 이동됩니다.</p> 
+			</div>
+			
 			<div class="row">
 				<div class="col-sm-10">
 				<ul class="list_count" id="list_count">
@@ -130,6 +135,10 @@
 						      <p class="card-text">${dto.title}</p>
 						      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
 						    </div>
+						    <div class="request_list">
+		                    	<div class="spinner-border text-primary" style="margin:0 0 0 5px"></div><span>    승인 대기중</span>
+						    </div>
+	                    	<br>
 						  </div>
 						</li>
 					</c:forEach>

@@ -37,35 +37,47 @@ public class StudyBoard_mystudyboardController {
 	 */
 	@RequestMapping(value = "/studyboard_MyBoard/studyboard_myrecruit_list", method = RequestMethod.GET)
 	public String myRecruitList(Locale locale, HttpSession session, Model model) {
-		String member_id = session.getAttribute("mb_id").toString();
-		List<StudyBoard_RecruitDTO> SBRC_list = sqlsession.selectList("Study_recruit.Stu_myrecruit_list", member_id);
-		model.addAttribute("SBRCboardListView", SBRC_list);
-		return "/studyboard_MyBoard/studyboard_myrecruit_list";
+		try {
+			String member_id = session.getAttribute("mb_id").toString();
+			List<StudyBoard_RecruitDTO> SBRC_list = sqlsession.selectList("Study_recruit.Stu_myrecruit_list", member_id);
+			model.addAttribute("SBRCboardListView", SBRC_list);
+			return "/studyboard_MyBoard/studyboard_myrecruit_list";
+		}catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("SBRCboardListView", "");
+			return "/studyboard_MyBoard/studyboard_myrecruit_list";
+		}
 	}
 	
 	@RequestMapping(value = "/studyboard_MyBoard/studyboard_myrequest_list", method = RequestMethod.GET)
 	public String myRequestList(Locale locale, HttpSession session, Model model) {
-		String member_id = session.getAttribute("mb_id").toString();
-		System.out.println("요청한 목록의 아이디는"+member_id);
-		MemberDTO SBRQ_list = sqlsession.selectOne("members.selectStRqBoard", member_id);
-		System.out.println("멤버의 데이터는"+SBRQ_list);
-		if(SBRQ_list.getRequest_list() != null) {
-			System.out.println("SBRQ_list"+SBRQ_list.getRequest_list());
-			List<StudyBoard_RecruitDTO> SBRC_list = new ArrayList<StudyBoard_RecruitDTO>();
-			String [] check_idx = SBRQ_list.getRequest_list().split(",");
-			for(String array : check_idx) {
-				System.out.println(array);
-				if(array.equals("null")) {
-					System.out.println("널널합니다.");
+		try {
+			String member_id = session.getAttribute("mb_id").toString();
+			System.out.println("요청한 목록의 아이디는"+member_id);
+			MemberDTO SBRQ_list = sqlsession.selectOne("members.selectStRqBoard", member_id);
+			System.out.println("멤버의 데이터는"+SBRQ_list);
+			if(SBRQ_list.getRequest_list() != null) {
+				System.out.println("SBRQ_list"+SBRQ_list.getRequest_list());
+				List<StudyBoard_RecruitDTO> SBRC_list = new ArrayList<StudyBoard_RecruitDTO>();
+				String [] check_idx = SBRQ_list.getRequest_list().split(",");
+				for(String array : check_idx) {
+					System.out.println(array);
+					if(array.equals("null")) {
+						System.out.println("널널합니다.");
+					}
+					else {
+						System.out.println("array의 idx 값입니다."+array);
+						SBRC_list.add((StudyBoard_RecruitDTO)(sqlsession.selectOne("Study_recruit.Stu_myrequest_list", array)));
+					}
 				}
-				else {
-					System.out.println("array의 idx 값입니다."+array);
-					SBRC_list.add((StudyBoard_RecruitDTO)(sqlsession.selectOne("Study_recruit.Stu_myrequest_list", array)));
-				}
+				model.addAttribute("SBRCboardListView", SBRC_list);
 			}
-			model.addAttribute("SBRCboardListView", SBRC_list);
+			return "/studyboard_MyBoard/studyboard_myrequest_list";
+		}catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("SBRCboardListView", "");
+			return "/studyboard_MyBoard/studyboard_myrequest_list";
 		}
-		return "/studyboard_MyBoard/studyboard_myrequest_list";
 	}
 	
 	@RequestMapping(value = "/studyboard_MyBoard/studyboard_mycompleted_list", method = RequestMethod.GET)

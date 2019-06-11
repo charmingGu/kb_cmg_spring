@@ -264,7 +264,7 @@
 						                </a>
 					                </c:if>
 					                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${Re_dto.idx}" aria-expanded="true" aria-controls="collapseUtilities">
-			                    	<span class="m-0 font-weight-bold text-primary">댓글창 열기</span>&nbsp&nbsp<i class="fas fa-comments fa-fw"></i>&nbsp<span>${Re_dto.reply_cnt}</span></h6>
+			                    	<span class="m-0 font-weight-bold text-primary">댓글창 열기</span>&nbsp&nbsp<i class="fas fa-comments fa-fw"></i>&nbsp<span>${Re_dto.reply_cnt}</span>
 					                </a>
 					                <!--대댓글 시작  -->
 					                <hr>
