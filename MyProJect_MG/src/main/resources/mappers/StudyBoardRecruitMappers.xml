@@ -60,7 +60,7 @@
 	
 	<select id="Stu_recruit_mystuboard_pluslist" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_Recruit_plusDTO"
 	resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
-		select * from ( select rownum rnum, b.* from (select * from studyboard_recruit order by idx desc) b ) where rnum between #{start_view} and #{view_point} and idx=primary_board_idx and id=#{member_id}
+		select * from ( select rownum rnum, b.* from (select * from studyboard_recruit order by idx desc) b ) where rnum between #{start_view} and #{view_point} and id=#{member_id} and idx=primary_board_idx
 	</select>
 	
 	<select id="Stu_recruit_select_readcont" parameterType="Integer"

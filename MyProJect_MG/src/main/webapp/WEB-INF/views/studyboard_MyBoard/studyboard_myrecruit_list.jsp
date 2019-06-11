@@ -28,15 +28,20 @@
 			  var start_view = $(".list_count li").length+1;
 			  var view_point = start_view+9;
 			  var member_id = "${sessionScope.mb_db.id}";
-			  $.ajax({
-					type:"POST",
-					url:"/studyboard_recruit/studyboard_myrecruit_pluslist",
-					data : {start_view : start_view, member_id : member_id, view_point : view_point},
-					dataType : "json",
-					success: function(result_cnt){
-						getMoreList(result_cnt);
-					}
-				});
+			  if(start_view > 10){
+				  $.ajax({
+						type:"POST",
+						url:"/studyboard_recruit/studyboard_myrecruit_pluslist",
+						data : {start_view : start_view, member_id : member_id, view_point : view_point},
+						dataType : "json",
+						success: function(result_cnt){
+							getMoreList(result_cnt);
+						}
+					});
+			  }
+			  else{
+				  alert("마지막 페이지 입니다.");
+			  }
 			});
 		  
 		  function getMoreList(list){

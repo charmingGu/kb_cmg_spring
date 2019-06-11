@@ -97,4 +97,19 @@ public class StudyBoard_mystudyboardController {
 		return SBRC_pluslist;
 	}
 	
+	@RequestMapping(value = "/studyboard_recruit/studyboard_myrequest_pluslist")
+	@ResponseBody
+	public List<StudyBoard_RecruitDTO> studyrecruit_myRequestPlusIndex(Locale locale, Model model, 
+			@RequestParam("start_view") int start_view,
+			@RequestParam("view_point") int view_point,
+			@RequestParam("member_id") String member_id,
+			HttpServletResponse response) {
+		StudyBoard_Recruit_plusDTO plus_number = new StudyBoard_Recruit_plusDTO();
+		plus_number.start_view = start_view;
+		plus_number.view_point = view_point;
+		plus_number.member_id = member_id;
+		List<StudyBoard_RecruitDTO> SBRC_pluslist = sqlsession.selectList("Study_recruit.Stu_recruit_mystuboard_pluslist", plus_number);
+		return SBRC_pluslist;
+	}
+	
 }
