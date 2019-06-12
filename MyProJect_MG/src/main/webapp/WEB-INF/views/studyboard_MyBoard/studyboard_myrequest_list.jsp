@@ -70,6 +70,24 @@
 	   	    	}
 	   	    	 $("#list_count li:last").after(content); 
 		  }
+		  
+		  $(".request_cancel").click(function(){
+			  var idx = $(this).attr("idx");
+			  var member_id = "${sessionScope.mb_db.id}";
+			  alert(idx);
+			  alert(member_id);
+			  $.ajax({
+					type:"POST",
+					url:"/studyboard_recruit/studyboard_myrequest_cancel",
+					data : {idx : idx, member_id : member_id},
+					success: function(result_cnt){
+						if(result_cnt == "true"){
+							alert("신청을 취소하였습니다.");
+							location.reload();
+						}
+					}
+				});
+		    });
 	  });
 	  </script>
 	 
@@ -134,6 +152,7 @@
 						      <h4 class="card-title">${dto.id}</h4>
 						      <p class="card-text">${dto.title}</p>
 						      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
+						      <button class="btn btn-danger request_cancel" id="request_cancel" idx="${dto.idx}" mb_id="${dto.id}">신청 취소</button>
 						    </div>
 						    <div class="request_list">
 		                    	<div class="spinner-border text-primary" style="margin:0 0 0 5px"></div><span>    승인 대기중</span>

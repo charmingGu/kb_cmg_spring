@@ -2,6 +2,7 @@ package com.ChaMg.MyProJect.StudyBoard_Recruit;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -122,6 +123,49 @@ public class StudyBoard_mystudyboardController {
 		plus_number.member_id = member_id;
 		List<StudyBoard_RecruitDTO> SBRC_pluslist = sqlsession.selectList("Study_recruit.Stu_recruit_mystuboard_pluslist", plus_number);
 		return SBRC_pluslist;
+	}
+	
+	@RequestMapping(value = "/studyboard_recruit/studyboard_myrequest_cancel")
+	@ResponseBody
+	public String studyrecruit_myRequestCancel(Locale locale, Model model, 
+			@RequestParam("idx") int idx,
+			@RequestParam("member_id") String member_id,
+			HttpServletResponse response) {
+		StudyBoard_RecruitDTO cancel_list = sqlsession.selectOne("Study_recruit.Stu_recruit_STRQ_list", idx);
+		MemberDTO member_request_list = sqlsession.selectOne("members.selectMember", member_id);
+		
+		//게시판 테이블 업데이트
+		String[] check_id = cancel_list.request_list.split(",");
+		for(int i=0; i < check_id.length; i++) {
+			if(check_id[i].equals(member_id)) {
+				check_id[i] = null;
+			}
+		}
+		String trans_list = Arrays.toString(check_id);
+		trans_list = trans_list.trim();
+		trans_list = trans_list.replace(" ", "");
+		trans_list = trans_list.replace("[", "");
+		trans_list = trans_list.replace("]", "");
+		cancel_list.request_list = trans_list;
+		sqlsession.update("Study_recruit.Stu_recruit_update_joinlist", cancel_list);
+		
+		//멤버 테이블 업데이트
+		String[] check_idx = member_request_list.getRequest_list().split(",");
+		String mb_check_idx = Integer.toString(idx);
+		for(int i=0; i < check_idx.length; i++) {
+			if(check_idx[i].equals(mb_check_idx)) {
+				check_idx[i] = null;
+			}
+		}
+		String trans_request_list = Arrays.toString(check_idx);
+		trans_request_list = trans_request_list.trim();
+		trans_request_list = trans_request_list.replace(" ", "");
+		trans_request_list = trans_request_list.replace("[", "");
+		trans_request_list = trans_request_list.replace("]", "");
+		member_request_list.setRequest_list(trans_request_list);
+		sqlsession.update("members.update_Request_list", member_request_list);
+		
+		return "true";
 	}
 	
 }
