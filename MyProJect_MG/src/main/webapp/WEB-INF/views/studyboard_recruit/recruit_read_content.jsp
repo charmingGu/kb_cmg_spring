@@ -325,7 +325,10 @@
 	                  </table>
 	              </div>
           	</div>
-          	<div class="col-sm-2" style="height:750px;"><img class="img-fluid" alt="ad" src="https://source.unsplash.com/random/280x750"></div>
+          	<div class="col-sm-2" style="height:750px;">
+          		<img class="img-fluid" alt="ad" src="https://source.unsplash.com/random/280x750">
+          		<embed height="300" width="100%" src="http://www.gagalive.kr/livechat2.swf?chatroom=${read_rc_cont.title}&user=${sessionScope.mb_db.id}"></embed>
+          	</div>
           </div>
           
 

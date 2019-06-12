@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 
@@ -140,7 +141,23 @@
 				                </a>
 						    </div>
 						    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">
-						    	<div class="choice_list" style="margin:3px"><span>hello</span><button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button></div>
+						    	<div class="choice_list" style="margin:3px">
+						    	<c:set value="${dto.request_list}" var="request_list"></c:set>
+							    	<c:forEach items="${fn:split(request_list, ',') }" var="item">
+							    		<c:choose>
+									    	<c:when test="${item ne 'null' and item ne ''}">
+										    	<span>${item}</span>
+										    	<button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button>
+										    	<br>
+									    	</c:when>
+									    	<c:when test="${item eq ''}">
+									    		<span>아직 신청자가 없습니다.ㅠㅠ</span>
+									    	</c:when>
+									    	<c:otherwise>
+									    	</c:otherwise>
+							    		</c:choose>
+									</c:forEach>
+							    </div>
 						    </div>
 						  </div>
 						</li>
