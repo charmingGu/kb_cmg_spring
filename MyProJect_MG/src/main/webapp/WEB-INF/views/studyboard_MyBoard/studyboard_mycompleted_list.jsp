@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 <!DOCTYPE html>
 
@@ -28,15 +29,20 @@
 			  var start_view = $(".list_count li").length+1;
 			  var view_point = start_view+9;
 			  var member_id = "${sessionScope.mb_db.id}";
-			  $.ajax({
-					type:"POST",
-					url:"/studyboard_recruit/studyboard_myrecruit_pluslist",
-					data : {start_view : start_view, member_id : member_id, view_point : view_point},
-					dataType : "json",
-					success: function(result_cnt){
-						getMoreList(result_cnt);
-					}
-				});
+			  if(start_view > 10){
+				  $.ajax({
+						type:"POST",
+						url:"/studyboard_recruit/studyboard_myrecruit_pluslist",
+						data : {start_view : start_view, member_id : member_id, view_point : view_point},
+						dataType : "json",
+						success: function(result_cnt){
+							getMoreList(result_cnt);
+						}
+					});
+			  }
+			  else{
+				  alert("마지막 페이지 입니다.");
+			  }
 			});
 		  
 		  function getMoreList(list){
@@ -102,11 +108,15 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <c:if test="${not empty sessionScope.mb_db.id}">
-	          <a href="/studyboard_recruit/studyboard_recruit_form">
-		          <button type="button" class="btn btn-primary">모집글 작성!</button>
-	          </a>
-          </c:if>
+<%--           <c:if test="${not empty sessionScope.mb_db.id}"> --%>
+<!-- 	          <a href="/studyboard_recruit/studyboard_recruit_form"> -->
+<!-- 		          <button type="button" class="btn btn-primary">모집글 작성!</button> -->
+<!-- 	          </a> -->
+<%--           </c:if> --%>
+			<div class="jumbotron">
+			  <h1>내 모집 게시판 목록보기</h1> 
+			  <p>내가 모집중인 스터디 게시판들을 보여줍니다.<br>모집이  완료되면 완료 게시판으로 이동됩니다.<br>신청자 보기를 누르시면 승인 대기중인 신청자들을 볼 수 있습니다.</p> 
+			</div>
           
 			<div class="row">
 				<div class="col-sm-10">
@@ -124,6 +134,30 @@
 						      <h4 class="card-title">${dto.id}</h4>
 						      <p class="card-text">${dto.title}</p>
 						      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
+						    </div>
+						    <div class="request_list">
+						    	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${dto.idx}" aria-expanded="true" aria-controls="collapseUtilities">
+			                    	<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
+				                </a>
+						    </div>
+						    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">
+						    	<div class="choice_list" style="margin:3px">
+						    	<c:set value="${dto.request_list}" var="request_list"></c:set>
+							    	<c:forEach items="${fn:split(request_list, ',') }" var="item">
+							    		<c:choose>
+									    	<c:when test="${item ne 'null' and item ne ''}">
+										    	<span>${item}</span>
+										    	<button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button>
+										    	<br>
+									    	</c:when>
+									    	<c:when test="${item eq ''}">
+									    		<span>아직 신청자가 없습니다.ㅠㅠ</span>
+									    	</c:when>
+									    	<c:otherwise>
+									    	</c:otherwise>
+							    		</c:choose>
+									</c:forEach>
+							    </div>
 						    </div>
 						  </div>
 						</li>

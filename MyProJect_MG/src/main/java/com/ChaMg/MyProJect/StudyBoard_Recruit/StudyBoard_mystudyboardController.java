@@ -50,6 +50,20 @@ public class StudyBoard_mystudyboardController {
 		}
 	}
 	
+	@RequestMapping(value = "/studyboard_MyBoard/studyboard_mycompleted_list", method = RequestMethod.GET)
+	public String mycomplete(Locale locale, HttpSession session, Model model) {
+		try {
+			String member_id = session.getAttribute("mb_id").toString();
+			List<StudyBoard_RecruitDTO> SBRC_list = sqlsession.selectList("Study_recruit.Stu_mycomplete_list", member_id);
+			model.addAttribute("SBRCboardListView", SBRC_list);
+			return "/studyboard_MyBoard/studyboard_mycompleted_list";
+		}catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("SBRCboardListView", "");
+			return "/studyboard_MyBoard/studyboard_mycompleted_list";
+		}
+	}
+	
 	@RequestMapping(value = "/studyboard_MyBoard/studyboard_myrequest_list", method = RequestMethod.GET)
 	public String myRequestList(Locale locale, HttpSession session, Model model) {
 		try {
@@ -79,20 +93,6 @@ public class StudyBoard_mystudyboardController {
 			model.addAttribute("SBRCboardListView", "");
 			return "/studyboard_MyBoard/studyboard_myrequest_list";
 		}
-	}
-	
-	@RequestMapping(value = "/studyboard_MyBoard/studyboard_mycompleted_list", method = RequestMethod.GET)
-	public String myCompleted(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "/studyboard_MyBoard/studyboard_mycompleted_list";
 	}
 	
 	@RequestMapping(value = "/studyboard_recruit/studyboard_myrecruit_pluslist")

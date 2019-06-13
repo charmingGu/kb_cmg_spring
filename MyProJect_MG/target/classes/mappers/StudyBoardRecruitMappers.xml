@@ -37,6 +37,10 @@
 		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=primary_board_idx and id=#{id}
 	</select>
 	
+	<select id="Stu_mycomplete_list" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=primary_board_idx and id=#{id} and recruit_complete is not null
+	</select>
+	
 	<select id="Stu_myrequest_list" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
 		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=#{idx} and primary_board_idx=#{idx}
 	</select>
