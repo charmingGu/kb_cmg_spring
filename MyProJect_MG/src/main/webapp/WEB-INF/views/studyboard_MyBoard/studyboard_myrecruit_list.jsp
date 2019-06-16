@@ -28,6 +28,8 @@
 		  $("#btn_more_list").click(function(){
 			  var start_view = $(".list_count li").length+1;
 			  var view_point = start_view+9;
+			  alert(start_view);
+			  alert(view_point);
 			  var member_id = "${sessionScope.mb_db.id}";
 			  if(start_view > 10){
 				  $.ajax({
@@ -66,11 +68,80 @@
 		   	 	    	content += '<p class="card-text">'+result_list.title+'</p>';
 		   	 			content += '<a href="/studyboard_recruit/studyboard_recruit_readcont/'+result_list.idx+'"'+'class="btn btn-primary">자세히 보기</a>';
 		   	 			content += '</div>';
+						content += '<div class="request_list">';
+						content += '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx$'+result_list.idx+'" aria-expanded="false" aria-controls="collapseUtilities">';
+						content += '<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>';
+						content += '</a>';
+						content += '</div>';
+						content += '<div id="FB_idx$'+result_list.idx+'" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">';
+						content += '<div class="choice_list" style="margin:3px">';
+						var pre_request_list = result_list.request_list;
+						if(pre_request_list){
+							var request_list = pre_request_list.split(',');
+							for(var item in request_list){
+								if(item != 'null' && item != ''){
+									content += '<span>'+item+'</span>';
+									content += '<button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button>';
+									content += '<br>';
+								}
+								else{
+									content += '<span>아직 신청자가 없습니다.ㅠㅠ</span>';
+								}
+							}
+						}
+						else{
+							content += '<span>아직 신청자가 없습니다.ㅠㅠ</span>';
+						}
+						content += '</div>';
+						content += '</div>';
+						content += '</div>';
 		   	 			content += '</div>';
 		   	 			content += '</li>';
 	   	    	}
 	   	    	 $("#list_count li:last").after(content); 
 		  }
+		  
+		  $(".badge.badge-success").click(function(){
+			  var result = confirm('해당 유저를 멤버로 수락하시겠습니까?');
+				if(result){
+					var member_id = $(this).attr("member_id");
+					var member_idx = $(this).attr("member_idx");
+					alert(member_id);
+					alert(member_idx);
+					$.ajax({
+						type:"POST",
+						url:"/studyboard_recruit/studyboard_mycompleted_add",
+						data : {idx : member_idx, member_id : member_id},
+						success: function(result_cnt){
+							if(result_cnt == "true"){
+								alert("수락하였습니다.");
+								location.reload();
+							}
+						}
+					});
+				}
+			});
+			
+			$(".badge.badge-danger").click(function(){
+				var result = confirm('정말 거절하시겠습니까?');
+				var member_id = $(this).prev().attr("member_id");
+				var member_idx = $(this).prev().attr("member_idx");
+				if(result){
+					alert(member_id);
+					alert(member_idx);
+					$.ajax({
+						type:"POST",
+						url:"/studyboard_recruit/studyboard_myrequest_cancel",
+						data : {idx : member_idx, member_id : member_id},
+						success: function(result_cnt){
+							if(result_cnt == "true"){
+								alert("거절하였습니다.");
+								location.reload();
+							}
+						}
+					});
+				}
+			});
 	  });
 	  </script>
 	 
@@ -136,18 +207,25 @@
 						      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
 						    </div>
 						    <div class="request_list">
-						    	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${dto.idx}" aria-expanded="true" aria-controls="collapseUtilities">
+						    	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${dto.idx}" aria-expanded="false" aria-controls="collapseUtilities">
 			                    	<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
 				                </a>
 						    </div>
 						    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">
 						    	<div class="choice_list" style="margin:3px">
 						    	<c:set value="${dto.request_list}" var="request_list"></c:set>
-							    	<c:forEach items="${fn:split(request_list, ',') }" var="item">
+						    	<c:set value="${dto.member_list}" var="pre_member_list"></c:set>
+						    	<c:set value="${fn:split(pre_member_list, ',')}" var="member_list"></c:set>
+							    	<c:forEach items="${fn:split(request_list, ',')}" var="item">
 							    		<c:choose>
+							    			<c:when test="${item ne 'null' and item ne '' and fn:contains(pre_member_list, item)}">
+							    			<h6 style="margin:3px">
+							    			${item} 님이 멤버로 등록되었습니다.
+							    			</h6>
+							    			</c:when>
 									    	<c:when test="${item ne 'null' and item ne ''}">
 										    	<span>${item}</span>
-										    	<button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button>
+										    	<button class="badge badge-success" style="margin:3px" member_id="${item}" member_idx="${dto.idx}">수락</button><button class="badge badge-danger" style="margin:3px">거절</button>
 										    	<br>
 									    	</c:when>
 									    	<c:when test="${item eq ''}">
@@ -171,7 +249,7 @@
 			</div>
 	        <div class="row">
 		        <div class="col-sm-10">
-					<button  id="btn_more_list" type="button" class="btn btn-outline-primary btn-block">더보기 More</button>
+					<button id="btn_more_list" type="button" class="btn btn-outline-primary btn-block">더보기 More</button>
 		        </div>
 	        </div>
         </div>

@@ -1,9 +1,7 @@
 package com.ChaMg.MyProJect.StudyBoard_Recruit;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -64,7 +62,7 @@ public class StudyBoard_mystudyboardController {
 		}
 	}
 	
-	@RequestMapping(value = "/studyboard_MyBoard/studyboard_myrequest_list", method = RequestMethod.GET)
+	@RequestMapping(value = "/studyboard_MyBoard/studyboard_myrequest_list")
 	public String myRequestList(Locale locale, HttpSession session, Model model) {
 		try {
 			String member_id = session.getAttribute("mb_id").toString();
@@ -168,4 +166,23 @@ public class StudyBoard_mystudyboardController {
 		return "true";
 	}
 	
+	@RequestMapping(value = "/studyboard_recruit/studyboard_mycompleted_add")
+	@ResponseBody
+	public String studyrecruit_myCompleted_add(Locale locale, Model model, 
+			@RequestParam("idx") int idx,
+			@RequestParam("member_id") String member_id,
+			HttpServletResponse response) {
+		StudyBoard_RecruitDTO completed_list = sqlsession.selectOne("Study_recruit.Stu_recruit_STRQ_list", idx);
+		
+		if(completed_list.member_list == null) {
+			completed_list.member_list = completed_list.member_list+"," + member_id;
+			sqlsession.update("Study_recruit.Stu_recruit_update_completed_list", completed_list);
+			return "true";
+		}
+		else {
+			completed_list.member_list = completed_list.member_list+"," + member_id;
+			sqlsession.update("Study_recruit.Stu_recruit_update_completed_list", completed_list);
+			return "true";
+		}
+	}
 }

@@ -29,6 +29,12 @@
 		where idx=#{idx}
 	</update>
 	
+	<update id="Stu_recruit_update_completed_list" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		update studyboard_recruit
+		set member_list=#{member_list}
+		where idx=#{idx}
+	</update>
+	
 	<select id="Stu_recruit_select_list" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
 		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=primary_board_idx
 	</select>
