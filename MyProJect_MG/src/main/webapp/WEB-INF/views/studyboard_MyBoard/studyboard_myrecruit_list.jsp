@@ -28,8 +28,8 @@
 		  $("#btn_more_list").click(function(){
 			  var start_view = $(".list_count li").length+1;
 			  var view_point = start_view+9;
-			  alert(start_view);
-			  alert(view_point);
+// 			  alert(start_view);
+// 			  alert(view_point);
 			  var member_id = "${sessionScope.mb_db.id}";
 			  if(start_view > 10){
 				  $.ajax({
@@ -73,15 +73,15 @@
 						content += '<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>';
 						content += '</a>';
 						content += '</div>';
-						content += '<div id="FB_idx$'+result_list.idx+'" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">';
-						content += '<div class="choice_list" style="margin:3px">';
+						content += '<div id="FB_idx$'+result_list.idx+'" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px;">';
+						content += '<div class="choice_list" style="margin:3px;">';
 						var pre_request_list = result_list.request_list;
 						if(pre_request_list){
 							var request_list = pre_request_list.split(',');
 							for(var item in request_list){
 								if(item != 'null' && item != ''){
 									content += '<span>'+item+'</span>';
-									content += '<button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button>';
+									content += '<button class="badge badge-success" style="margin:3px;">수락</button><button class="badge badge-danger" style="margin:3px;">거절</button>';
 									content += '<br>';
 								}
 								else{
@@ -211,21 +211,21 @@
 			                    	<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
 				                </a>
 						    </div>
-						    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">
-						    	<div class="choice_list" style="margin:3px">
+						    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px;">
+						    	<div class="choice_list" style="margin:3px;">
 						    	<c:set value="${dto.request_list}" var="request_list"></c:set>
 						    	<c:set value="${dto.member_list}" var="pre_member_list"></c:set>
 						    	<c:set value="${fn:split(pre_member_list, ',')}" var="member_list"></c:set>
 							    	<c:forEach items="${fn:split(request_list, ',')}" var="item">
 							    		<c:choose>
 							    			<c:when test="${item ne 'null' and item ne '' and fn:contains(pre_member_list, item)}">
-							    			<h6 style="margin:3px">
+							    			<h6 style="margin:3px;">
 							    			${item} 님이 멤버로 등록되었습니다.
 							    			</h6>
 							    			</c:when>
 									    	<c:when test="${item ne 'null' and item ne ''}">
 										    	<span>${item}</span>
-										    	<button class="badge badge-success" style="margin:3px" member_id="${item}" member_idx="${dto.idx}">수락</button><button class="badge badge-danger" style="margin:3px">거절</button>
+										    	<button class="badge badge-success" style="margin:3px;" member_id="${item}" member_idx="${dto.idx}">수락</button><button class="badge badge-danger" style="margin:3px;">거절</button>
 										    	<br>
 									    	</c:when>
 									    	<c:when test="${item eq ''}">
