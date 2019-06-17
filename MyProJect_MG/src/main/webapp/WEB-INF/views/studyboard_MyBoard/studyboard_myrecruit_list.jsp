@@ -142,6 +142,29 @@
 					});
 				}
 			});
+			
+			$(".complete_recruit").click(function(){
+				var result = confirm('모집완료 하시겠습니까?');
+				var idx = $(this).attr("complete_idx");
+				if(result){
+					alert(idx);
+					$.ajax({
+						type:"POST",
+						url:"/studyboard_recruit/studyboard_mycompleted_added",
+						data : {idx : idx},
+						success: function(result_cnt){
+							if(result_cnt == "true"){
+								alert("모집 완료되었습니다.");
+								location.reload();
+							}
+							else{
+								alert("오류발생");
+								location.reload();
+							}
+						}
+					});
+				}
+			});
 	  });
 	  </script>
 	 
@@ -193,52 +216,52 @@
 				<div class="col-sm-10">
 				<ul class="list_count" id="list_count">
 					<c:forEach items="${SBRCboardListView}" var="dto">
-						<li class="study_recu_list">
-				          <div class="card" style="width:400px; overflow: hidden;">
-				          	<c:if test="${dto.image_location ne null}">
-						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
-				          	</c:if>
-				          	<c:if test="${dto.image_location eq null}">
-						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
-				          	</c:if>
-						    <div class="card-body">
-						      <h4 class="card-title">${dto.id}</h4>
-						      <p class="card-text">${dto.title}</p>
-						      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
-						    </div>
-						    <div class="request_list">
-						    	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${dto.idx}" aria-expanded="false" aria-controls="collapseUtilities">
-			                    	<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
-				                </a>
-						    </div>
-						    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px;">
-						    	<div class="choice_list" style="margin:3px;">
-						    	<c:set value="${dto.request_list}" var="request_list"></c:set>
-						    	<c:set value="${dto.member_list}" var="pre_member_list"></c:set>
-						    	<c:set value="${fn:split(pre_member_list, ',')}" var="member_list"></c:set>
-							    	<c:forEach items="${fn:split(request_list, ',')}" var="item">
-							    		<c:choose>
-							    			<c:when test="${item ne 'null' and item ne '' and fn:contains(pre_member_list, item)}">
-							    			<h6 style="margin:3px;">
-							    			${item} 님이 멤버로 등록되었습니다.
-							    			</h6>
-							    			</c:when>
-									    	<c:when test="${item ne 'null' and item ne ''}">
-										    	<span>${item}</span>
-										    	<button class="badge badge-success" style="margin:3px;" member_id="${item}" member_idx="${dto.idx}">수락</button><button class="badge badge-danger" style="margin:3px;">거절</button>
-										    	<br>
-									    	</c:when>
-									    	<c:when test="${item eq ''}">
-									    		<span>아직 신청자가 없습니다.ㅠㅠ</span>
-									    	</c:when>
-									    	<c:otherwise>
-									    	</c:otherwise>
-							    		</c:choose>
-									</c:forEach>
+						<c:if test="${dto.recruit_complete eq null}">
+							<li class="study_recu_list">
+					          <div class="card" style="width:400px; overflow: hidden;">
+					          	<c:if test="${dto.image_location ne null}">
+							    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
+					          	</c:if>
+					          	<c:if test="${dto.image_location eq null}">
+							    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+					          	</c:if>
+							    <div class="card-body">
+							      <h4 class="card-title">${dto.id}</h4>
+							      <p class="card-text">${dto.title}</p>
+							      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
+							      <button class="complete_recruit btn btn-outline-primary" complete_idx="${dto.idx}">모집 완료하기</button>
 							    </div>
-						    </div>
-						  </div>
-						</li>
+							    <div class="request_list">
+							    	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${dto.idx}" aria-expanded="false" aria-controls="collapseUtilities">
+				                    	<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
+					                </a>
+							    </div>
+							    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px;">
+							    	<div class="choice_list" style="margin:3px;">
+							    	<c:set value="${dto.request_list}" var="request_list"></c:set>
+							    	<c:set value="${dto.member_list}" var="pre_member_list"></c:set>
+							    	<c:set value="${fn:split(pre_member_list, ',')}" var="member_list"></c:set>
+								    	<c:forEach items="${fn:split(request_list, ',')}" var="item">
+								    		<c:choose>
+								    			<c:when test="${item ne 'null' and item ne '' and fn:contains(pre_member_list, item)}">
+								    			<h6 style="margin:3px;">
+								    			${item} 님이 멤버로 등록되었습니다.
+								    			</h6>
+								    			</c:when>
+										    	<c:when test="${item ne 'null' and item ne ''}">
+											    	<span>${item}</span>
+											    	<button class="badge badge-success" style="margin:3px;" member_id="${item}" member_idx="${dto.idx}">수락</button><button class="badge badge-danger" style="margin:3px;">거절</button>
+											    	<br>
+										    	</c:when>
+										    	<c:otherwise>
+										    	</c:otherwise>
+								    		</c:choose>
+										</c:forEach>
+								    </div>
+							    </div>
+							  </div>
+							</li>
+						</c:if>
 					</c:forEach>
 				</ul>
 				</div>

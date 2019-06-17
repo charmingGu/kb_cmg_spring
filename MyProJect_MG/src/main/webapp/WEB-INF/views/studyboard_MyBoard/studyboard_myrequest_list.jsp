@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 
 <html>
@@ -140,26 +141,37 @@
 				<div class="col-sm-10">
 				<ul class="list_count" id="list_count">
 					<c:forEach items="${SBRCboardListView}" var="dto">
-						<li class="study_recu_list">
-				          <div class="card" style="width:400px; overflow: hidden;">
-				          	<c:if test="${dto.image_location ne null}">
-						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
-				          	</c:if>
-				          	<c:if test="${dto.image_location eq null}">
-						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
-				          	</c:if>
-						    <div class="card-body">
-						      <h4 class="card-title">${dto.id}</h4>
-						      <p class="card-text">${dto.title}</p>
-						      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
-						      <button class="btn btn-danger request_cancel" id="request_cancel" idx="${dto.idx}" mb_id="${dto.id}">신청 취소</button>
-						    </div>
-						    <div class="request_list">
-		                    	<div class="spinner-border text-primary" style="margin:0 0 0 5px"></div><span>    승인 대기중</span>
-						    </div>
-	                    	<br>
-						  </div>
-						</li>
+						<c:if test="${dto.recruit_complete eq null}">
+							<li class="study_recu_list">
+					          <div class="card" style="width:400px; overflow: hidden;">
+					          	<c:if test="${dto.image_location ne null}">
+							    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
+					          	</c:if>
+					          	<c:if test="${dto.image_location eq null}">
+							    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+					          	</c:if>
+							    <div class="card-body">
+							      <h4 class="card-title">${dto.id}</h4>
+							      <p class="card-text">${dto.title}</p>
+							      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
+							      <button class="btn btn-danger request_cancel" id="request_cancel" idx="${dto.idx}" mb_id="${dto.id}">신청 취소</button>
+							    </div>
+							    <div class="request_list">
+								    <c:set value="${dto.member_list}" var="pre_member_list"></c:set>
+								    <c:set value="${sessionScope.mb_db.id}" var="member_id"></c:set>
+							    	<c:choose>
+						    			<c:when test="${pre_member_list ne 'null' and pre_member_list ne '' and fn:contains(pre_member_list, member_id)}">
+						    				<div class="fas fa-check-circle" style="margin:0 0 0 5px"></div><span>    승인됨.</span>
+						    			</c:when>
+								    	<c:otherwise>
+		                    				<div class="spinner-border text-primary" style="margin:0 0 0 5px"></div><span>    승인 대기중</span>
+								    	</c:otherwise>
+						    		</c:choose>
+							    </div>
+		                    	<br>
+							  </div>
+							</li>
+						</c:if>
 					</c:forEach>
 				</ul>
 				</div>

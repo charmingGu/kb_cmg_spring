@@ -185,4 +185,19 @@ public class StudyBoard_mystudyboardController {
 			return "true";
 		}
 	}
+	
+	@RequestMapping(value = "/studyboard_recruit/studyboard_mycompleted_added")
+	@ResponseBody
+	public String studyrecruit_myCompleted_added(Locale locale, Model model, 
+			@RequestParam("idx") int idx,
+			HttpServletResponse response) {
+			int complete_result = sqlsession.update("Study_recruit.studyboard_complete_update", idx);
+			if(complete_result != 0) {
+				return "true";
+			}
+			else {
+				return "false";
+			}
+		
+	}
 }

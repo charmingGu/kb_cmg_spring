@@ -53,6 +53,7 @@
 	   	    	}
 	   	    	for(i=0; i<list.length; i++){
 	   	    		var result_list = list[i];
+	   	    		if(result_list.recruit_complete == 'true'){
 		   	    		content += '<li class="study_recu_list">';
 		   	   	    	content += '<div class="card" style="width:400px">';
 		   	   	    	if(result_list.image_location != null){
@@ -68,6 +69,7 @@
 		   	 			content += '</div>';
 		   	 			content += '</div>';
 		   	 			content += '</li>';
+	   	    		}
 	   	    	}
 	   	    	 $("#list_count li:last").after(content); 
 		  }
@@ -137,21 +139,21 @@
 						    </div>
 						    <div class="request_list">
 						    	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#FB_idx${dto.idx}" aria-expanded="true" aria-controls="collapseUtilities">
-			                    	<span class="m-0 font-weight-bold text-primary">신청자 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
+			                    	<span class="m-0 font-weight-bold text-primary">스터디 멤버 목록</span>&nbsp&nbsp<i class="fas fa-address-book"></i>
 				                </a>
 						    </div>
 						    <div id="FB_idx${dto.idx}" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style="margin:3px">
-						    	<div class="choice_list" style="margin:3px">
-						    	<c:set value="${dto.request_list}" var="request_list"></c:set>
-							    	<c:forEach items="${fn:split(request_list, ',') }" var="item">
+						    	<div class="choice_list" style="margin:3px;">
+						    	<c:set value="${dto.member_list}" var="member_list"></c:set>
+							    	<c:forEach items="${fn:split(member_list, ',') }" var="item">
 							    		<c:choose>
 									    	<c:when test="${item ne 'null' and item ne ''}">
-										    	<span>${item}</span>
-										    	<button class="badge badge-success" style="margin:3px">수락</button><button class="badge badge-danger" style="margin:3px">거절</button>
+										    	<span style="margin-left:10px;">${item}</span>
+										    	<button class="badge badge-danger" style="margin-left:3px;">퇴출</button>
 										    	<br>
 									    	</c:when>
 									    	<c:when test="${item eq ''}">
-									    		<span>아직 신청자가 없습니다.ㅠㅠ</span>
+									    		<span>신청자가 없습니다.ㅠㅠ</span>
 									    	</c:when>
 									    	<c:otherwise>
 									    	</c:otherwise>

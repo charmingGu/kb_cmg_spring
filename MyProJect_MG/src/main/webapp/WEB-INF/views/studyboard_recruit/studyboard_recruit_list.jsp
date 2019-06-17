@@ -48,19 +48,21 @@
 	   	    		var result_list = list[i];
 		   	    		content += '<li class="study_recu_list">';
 		   	   	    	content += '<div class="card" style="width:400px">';
-		   	   	    	if(result_list.image_location != null){
-		   	   	  			content += '<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/'+result_list.id+'/'+result_list.image_location+'"/>" align="middle" style="margin:1px 0;">';
+		   	   	    	if(result_list.recruit_complete == null){
+			   	   	    	if(result_list.image_location != null){
+			   	   	  			content += '<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/'+result_list.id+'/'+result_list.image_location+'"/>" align="middle" style="margin:1px 0;">';
+			   	   	    	}
+			   	   	    	if(result_list.image_location == null){
+					   	 		content += '<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">';
+			   	   	    	}
+			   	 	    	content += '<div class="card-body">';
+			   	 	    	content += '<h4 class="card-title">'+result_list.id+'</h4>';
+			   	 	    	content += '<p class="card-text">'+result_list.title+'</p>';
+			   	 			content += '<a href="/studyboard_recruit/studyboard_recruit_readcont/'+result_list.idx+'"'+'class="btn btn-primary">자세히 보기</a>';
+			   	 			content += '</div>';
+			   	 			content += '</div>';
+			   	 			content += '</li>';
 		   	   	    	}
-		   	   	    	if(result_list.image_location == null){
-				   	 		content += '<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">';
-		   	   	    	}
-		   	 	    	content += '<div class="card-body">';
-		   	 	    	content += '<h4 class="card-title">'+result_list.id+'</h4>';
-		   	 	    	content += '<p class="card-text">'+result_list.title+'</p>';
-		   	 			content += '<a href="/studyboard_recruit/studyboard_recruit_readcont/'+result_list.idx+'"'+'class="btn btn-primary">자세히 보기</a>';
-		   	 			content += '</div>';
-		   	 			content += '</div>';
-		   	 			content += '</li>';
 	   	    	}
 	   	    	 $("#list_count li:last").after(content); 
 		  }
@@ -103,7 +105,7 @@
           <!-- Page Heading -->
           <c:if test="${not empty sessionScope.mb_db.id}">
 	          <a href="/studyboard_recruit/studyboard_recruit_form">
-		          <button type="button" class="btn btn-primary">모집글 작성!</button>
+		          <button type="button" style="margin-left:5%" class="btn btn-primary">모집글 작성!</button>
 	          </a>
           </c:if>
           
@@ -111,21 +113,23 @@
 				<div class="col-sm-10">
 				<ul class="list_count" id="list_count">
 					<c:forEach items="${SBRCboardListView}" var="dto">
-						<li class="study_recu_list">
-				          <div class="card" style="width:400px; overflow: hidden;">
-				          	<c:if test="${dto.image_location ne null}">
-						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
-				          	</c:if>
-				          	<c:if test="${dto.image_location eq null}">
-						    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
-				          	</c:if>
-						    <div class="card-body">
-						      <h4 class="card-title">${dto.id}</h4>
-						      <p class="card-text">${dto.title}</p>
-						      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
-						    </div>
-						  </div>
-						</li>
+						<c:if test="${dto.recruit_complete eq null}">
+							<li class="study_recu_list">
+					          <div class="card" style="width:400px; overflow: hidden;">
+					          	<c:if test="${dto.image_location ne null}">
+							    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="<spring:url value="/img/STRC/${dto.id}/${dto.image_location}"/>" align="middle" style="margin:1px 0;">
+					          	</c:if>
+					          	<c:if test="${dto.image_location eq null}">
+							    	<img class="img-fluid" alt="Card image" style="width:100%; height:auto;" src="${pageContext.request.contextPath}/resources/img/undraw_posting_photo.svg" align="middle" style="margin:1px 0;">
+					          	</c:if>
+							    <div class="card-body">
+							      <h4 class="card-title">${dto.id}</h4>
+							      <p class="card-text">${dto.title}</p>
+							      <a href="/studyboard_recruit/studyboard_recruit_readcont/${dto.idx}" class="btn btn-primary">자세히 보기</a>
+							    </div>
+							  </div>
+							</li>
+						</c:if>
 					</c:forEach>
 				</ul>
 				</div>
