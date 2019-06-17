@@ -53,6 +53,8 @@ public class StudyBoard_mystudyboardController {
 		try {
 			String member_id = session.getAttribute("mb_id").toString();
 			List<StudyBoard_RecruitDTO> SBRC_list = sqlsession.selectList("Study_recruit.Stu_mycomplete_list", member_id);
+			List<StudyBoard_RecruitDTO> SBRC_list2 = sqlsession.selectList("Study_recruit.Stu_mycomplete_list2", member_id);
+			SBRC_list.addAll(SBRC_list2);
 			model.addAttribute("SBRCboardListView", SBRC_list);
 			return "/studyboard_MyBoard/studyboard_mycompleted_list";
 		}catch (Exception e) {

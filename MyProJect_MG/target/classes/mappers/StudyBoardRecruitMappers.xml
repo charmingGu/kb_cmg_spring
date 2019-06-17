@@ -44,8 +44,14 @@
 	</select>
 	
 	<select id="Stu_mycomplete_list" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
-		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=primary_board_idx and id=#{id} and recruit_complete is not null or idx=primary_board_idx and recruit_complete is not null and member_list like #{id}%
+		select * from (select * from studyboard_recruit where idx=primary_board_idx and id=#{member_id} and recruit_complete='true' order by idx desc) where rownum between 1 and 10
 	</select>
+	
+	<select id="Stu_mycomplete_list2" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
+		select * from (select * from studyboard_recruit where idx=primary_board_idx and recruit_complete='true' and member_list like '%'||#{member_id}||'%' order by idx desc) where rownum between 1 and 10
+	</select>
+	
+<!-- 	or idx=primary_board_idx and recruit_complete is not null and member_list like #{id}% -->
 	
 	<select id="Stu_myrequest_list" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
 		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=#{idx} and primary_board_idx=#{idx}
