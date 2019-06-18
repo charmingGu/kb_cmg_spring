@@ -58,17 +58,17 @@
 				  </ul>
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
-				      <img src="${pageContext.request.contextPath}/resources/img/study01.jpg" alt="study01" width="100%" height="90%">
+				      <img src="${pageContext.request.contextPath}/resources/img/study01.jpg" alt="study01" width="100%" height="100%">
 				      <div class="carousel-caption">
 				      </div>   
 				    </div>
 				    <div class="carousel-item">
-				      <img src="${pageContext.request.contextPath}/resources/img/study02.jpg" alt="Chicago" width="100%" height="90%">
+				      <img src="${pageContext.request.contextPath}/resources/img/study02.jpg" alt="study02" width="100%" height="100%">
 				      <div class="carousel-caption">
 				      </div>   
 				    </div>
 				    <div class="carousel-item">
-				      <img src="${pageContext.request.contextPath}/resources/img/study03.jpg" alt="New York" width="100%" height="90%">
+				      <img src="${pageContext.request.contextPath}/resources/img/study03.jpg" alt="study03" width="100%" height="100%">
 				      <div class="carousel-caption">
 				      </div>   
 				    </div>

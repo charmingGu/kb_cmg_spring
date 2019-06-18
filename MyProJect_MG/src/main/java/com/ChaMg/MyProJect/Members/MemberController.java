@@ -3,6 +3,7 @@ package com.ChaMg.MyProJect.Members;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -66,18 +69,32 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/member/joinProc")
-	public String joinProc(Model model, HttpSession session, MemberDTO mdto	) {
-	int temp = sqlsession.insert("members.insertmember",mdto);
-	if( temp ==1 ) {
-//		System.out.println("insert 성공");
-		session.setAttribute("db_md", mdto);
-		List<MemberDTO> al = sqlsession.selectList("members.selectAll");
-		model.addAttribute("memberList", al);
-		return "home";
-	}else {
-//		System.out.println("insert 실패");
-		model.addAttribute("joininfo","피치못할사정에 insert실패했어요..");
-		return "/member/join";
-	}
+	@ResponseBody
+	public String joinProc(Model model, HttpSession session, 
+			@RequestParam("id") String id,
+			@RequestParam("pw") String pw,
+			@RequestParam("phone") String phone,
+			@RequestParam("email") String email,
+			@RequestParam("birthday") String birthday,
+			HttpServletResponse response) {
+		
+		try {
+			MemberDTO mdto = new MemberDTO();
+			mdto.setId(id);
+			mdto.setPw(pw);
+			mdto.setPhone(phone);
+			mdto.setEmail(email);
+			mdto.setBirthday(birthday);
+		
+			int temp = sqlsession.insert("members.insertmember",mdto);
+			if( temp ==1 ) {
+				//		System.out.println("insert 성공");
+				return "true";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "false";
+		}
+		return "false";
 	}
 }
