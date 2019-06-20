@@ -97,4 +97,40 @@ public class MemberController {
 		}
 		return "false";
 	}
+	
+	@RequestMapping(value = "/member/id_check")
+	@ResponseBody
+	public String id_check(Model model, HttpSession session, 
+			@RequestParam("id") String id,
+			HttpServletResponse response) {
+		try {
+			MemberDTO check = sqlsession.selectOne("members.selectMember", id);
+			if(check.getId() != null) {
+				//		System.out.println("insert 성공");
+				return "false";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "true";
+		}
+		return "IdontKnow";
+	}
+	
+	@RequestMapping(value = "/member/email_check")
+	@ResponseBody
+	public String email_check(Model model, HttpSession session, 
+			@RequestParam("email") String email,
+			HttpServletResponse response) {
+		try {
+			MemberDTO check = sqlsession.selectOne("members.selectEmail", email);
+			if(check.getEmail() != null) {
+				//		System.out.println("insert 성공");
+				return "false";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "true";
+		}
+		return "IdontKnow";
+	}
 }

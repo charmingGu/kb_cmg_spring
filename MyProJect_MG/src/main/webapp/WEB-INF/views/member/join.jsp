@@ -21,6 +21,8 @@
   
   <script>
 	  $(document).ready(function(){
+		  var id_check = 0;
+		  var email_check = 0;
 		  $("#join_button").click(function(){
 			  var id = $("#id").val();
 			  var pw = $("#pw").val();
@@ -31,6 +33,9 @@
 			  if(id == "" || pw == "" || phone == "" || email == "" || birthday == ""){
 				  alert("회원정보를 모두 입력해주세요.");
 			  }
+			  else if(id_check == 0 || email_check == 0){
+				  alert("아이디 또는 이메일의 중복을 체크해주세요.");
+			  }
 			  else{
 				  $.ajax({
 						type:"POST",
@@ -38,11 +43,60 @@
 						data : {id:id, pw:pw, phone:phone, email:email, birthday:birthday},
 						success: function(response){
 							if(response=="true"){
+								alert("회원가입이 완료되었습니다");
 								window.location.href = "/";
 							}
 							else{
 								alert("가입실패");
 								window.location.href = "/member/join";
+							}
+						}
+					});
+			  }
+		  });
+		  
+		  $("#check_id").click(function(){
+			  var id = $("#id").val();
+			  if(id == ""){
+				  alert("아이디를 입력해주세요.");
+			  }
+			  else{
+				  $.ajax({
+						type:"POST",
+						url:"/member/id_check",
+						data : {id:id},
+						success: function(response){
+							if(response=="true"){
+								alert("사용가능한 아이디 입니다.");
+								id_check = 1;
+							}
+							else{
+								alert("이미 가입된 아이디 입니다.");
+								id_check = 0;
+							}
+						}
+					});
+			  }
+		  });
+		  
+		  $("#check_email").click(function(){
+			  var email = $("#email").val();
+			  if(email == ""){
+				  alert("이메일을 입력해주세요.");
+			  }
+			  else{
+				  $.ajax({
+						type:"POST",
+						url:"/member/email_check",
+						data : {email:email},
+						success: function(response){
+							if(response=="true"){
+								alert("사용가능한 이메일 입니다.");
+								email_check = 1;
+							}
+							else{
+								alert("이미 가입된 이메일 입니다.");
+								email_check = 0;
 							}
 						}
 					});
@@ -70,13 +124,15 @@
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="아이디">
+                    <button style="margin-top:5px" class="check_id btn btn-outline-primary" id="check_id">아이디 중복 체크</button>
                   </div>
                   <div class="col-sm-6">
                     <input type="password" class="form-control form-control-user" id="pw" name="pw" placeholder="패스워드">
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="이메일">
+                  <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="email@email.com">
+                  <button style="margin-top:5px" class="check_email btn btn-outline-primary" id="check_email">이메일 중복 체크</button>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">

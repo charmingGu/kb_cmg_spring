@@ -18,6 +18,10 @@
 		select * from member where id=#{id}
 	</select>
 	
+	<select id="selectEmail" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.Members.MemberDTO">
+		select * from member where email=#{email}
+	</select>
+	
 	<select id="selectStRqBoard" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.Members.MemberDTO">
 		select * from member where id=#{member_id}
 	</select>
