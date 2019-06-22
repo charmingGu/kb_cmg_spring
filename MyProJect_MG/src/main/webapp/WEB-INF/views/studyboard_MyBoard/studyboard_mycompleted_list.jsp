@@ -73,6 +73,28 @@
 	   	    	}
 	   	    	 $("#list_count li:last").after(content); 
 		  }
+		  
+		  $(".badge.badge-danger.ban").click(function(){
+			  var idx = $(this).attr("idx");
+			  var id = $(this).prev().text();
+			  alert(idx);
+			  alert(id);
+				  $.ajax({
+						type:"POST",
+						url:"/studyboard_recruit/studyboard_myrequest_ban",
+						data : {idx:idx, id:id},
+						success: function(result){
+							if(result){
+								alert(id+" 님이 퇴출되었습니다.");
+								window.location.reload();
+							}
+							else{
+								alert("예기치 못한 문제가 발생하였습니다.");
+								window.location.reload();
+							}
+						}
+					});
+			});
 	  });
 	  </script>
 	 
@@ -149,7 +171,7 @@
 							    		<c:choose>
 									    	<c:when test="${item ne 'null' and item ne ''}">
 										    	<span style="margin-left:10px;">${item}</span>
-										    	<button class="badge badge-danger" style="margin-left:3px;">퇴출</button>
+										    	<button class="badge badge-danger ban" style="margin-left:3px;" idx="${dto.idx}">퇴출</button>
 										    	<br>
 									    	</c:when>
 									    	<c:when test="${item eq ''}">

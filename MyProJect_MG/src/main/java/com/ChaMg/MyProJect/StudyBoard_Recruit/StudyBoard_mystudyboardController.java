@@ -202,4 +202,35 @@ public class StudyBoard_mystudyboardController {
 			}
 		
 	}
+	
+	@RequestMapping(value = "/studyboard_recruit/studyboard_myrequest_ban")
+	@ResponseBody
+	public String studyrecruit_myRequestBan(Locale locale, Model model, 
+			@RequestParam("idx") int idx,
+			@RequestParam("id") String id,
+			HttpServletResponse response) {
+		
+		try {
+			StudyBoard_RecruitDTO banMember_list = sqlsession.selectOne("Study_recruit.Stu_recruit_STRQ_list", idx);
+			//게시판 테이블 업데이트
+			String[] check_id = banMember_list.member_list.split(",");
+			for(int i=0; i < check_id.length; i++) {
+				if(check_id[i].equals(id)) {
+					check_id[i] = null;
+				}
+			}
+			String trans_list = Arrays.toString(check_id);
+			trans_list = trans_list.trim();
+			trans_list = trans_list.replace(" ", "");
+			trans_list = trans_list.replace("[", "");
+			trans_list = trans_list.replace("]", "");
+			banMember_list.member_list = trans_list;
+			sqlsession.update("Study_recruit.Stu_recruit_update_completed_list", banMember_list);
+			return "true";
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "false";
+		}
+	}
 }
