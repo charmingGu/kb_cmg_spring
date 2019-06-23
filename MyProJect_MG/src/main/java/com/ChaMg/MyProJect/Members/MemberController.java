@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +34,14 @@ public class MemberController {
 	@RequestMapping(value = "/member/login")
 	public String login(Locale locale, Model model) {
 		return "/member/login";
+	}
+	
+	@RequestMapping(value = "/member/myProfile/{id}")
+	public String myProfile(Locale locale, Model model, HttpSession session, @PathVariable(value = "id") String id) {
+//		System.out.println(id);
+		MemberDTO get_memberInfo = sqlsession.selectOne("members.selectMember", id);
+		session.setAttribute("memberInfo", get_memberInfo);
+		return "/member/member_update";
 	}
 	
 	@RequestMapping(value = "/member/loginProc")
