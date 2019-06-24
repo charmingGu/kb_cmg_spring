@@ -20,6 +20,41 @@
 
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+	  $("#submit").click(function(){
+		  var result = confirm('회원 정보를 수정하시겠습니까?');
+		  if(result){
+			  var id = $("#id").val();
+			  var email = $("#email").val();
+			  var password = $("#password").val();
+			  var birthday = $("#birthday").val();
+			  var phone = $("#phone").val();
+	// 		  alert(id);
+	// 		  alert(email);
+	// 		  alert(password);
+	// 		  alert(birthday);
+	// 		  alert(phone);
+			  $.ajax({
+					type:"POST",
+					url:"/member/updateProc",
+					data : {id:id, email:email, password:password, birthday:birthday, phone:phone},
+					success: function(response){
+						if(response=="true"){
+							alert("수정성공");
+							window.location.href="/";
+						}
+						else{
+							alert("수정실패");
+							window.location.href="/";
+						}
+					}
+				});
+		  }
+		});
+  });
+  </script>
 
 </head>
 
@@ -58,16 +93,16 @@
 				  <input type="email" class="form-control form-control-user" id="email" name="email" disabled value="${memberInfo.email}">
 				</div>
 				<div class="form-group">
-				  <label for="pw">비밀번호:</label>
-				  <input type="password" class="form-control form-control-user" id="password" name="password" disabled value="${memberInfo.pw}">
+				  <label for="password">비밀번호:</label>
+				  <input type="password" class="form-control form-control-user" id="password" name="password" value="${memberInfo.password}">
 				</div>
 				<div class="form-group">
 				  <label for="email">휴대폰:</label>
-				  <input type="text" class="form-control form-control-user" id="phone" name="phone" disabled value="${memberInfo.phone}">
+				  <input type="text" class="form-control form-control-user" id="phone" name="phone" value="${memberInfo.phone}">
 				</div>
 				<div class="form-group">
 				  <label for="birthday">생년월일:</label>
-				  <input type="text" class="form-control form-control-user" id="birthday" name="birthday" disabled value="${memberInfo.birthday}">
+				  <input type="text" class="form-control form-control-user" id="birthday" name="birthday" value="${memberInfo.birthday}">
 				</div>
 				<div class="form-group">
 				  <label for="joindate">가입일:</label>
@@ -89,7 +124,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span>Copyright &copy; CharMingGu 2019</span>
           </div>
         </div>
       </footer>

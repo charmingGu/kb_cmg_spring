@@ -4,7 +4,7 @@ public class MemberDTO {
 
 	private int idx;
 	private String id;
-	private String pw;
+	private String password;
 	private String name;
 	private String email;
 	private String phone;
@@ -30,12 +30,6 @@ public class MemberDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getPw() {
-		return pw;
-	}
-	public void setPw(String pw) {
-		this.pw = pw;
 	}
 	public String getName() {
 		return name;
@@ -73,11 +67,16 @@ public class MemberDTO {
 	public void setStudyGroup_list(String studyGroup_list) {
 		this.studyGroup_list = studyGroup_list;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	@Override
 	public String toString() {
-		return "MemberDTO [idx=" + idx + ", id=" + id + ", pw=" + pw + ", name=" + name + ", email=" + email
+		return "MemberDTO [idx=" + idx + ", id=" + id + ", password=" + password + ", name=" + name + ", email=" + email
 				+ ", phone=" + phone + ", birthday=" + birthday + ", joindate=" + joindate + ", request_list="
 				+ request_list + ", studyGroup_list=" + studyGroup_list + "]";
 	}
-	
 }

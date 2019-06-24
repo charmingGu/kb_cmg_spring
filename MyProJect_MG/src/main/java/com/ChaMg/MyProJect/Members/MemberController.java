@@ -1,6 +1,5 @@
 package com.ChaMg.MyProJect.Members;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
@@ -90,12 +89,42 @@ public class MemberController {
 		try {
 			MemberDTO mdto = new MemberDTO();
 			mdto.setId(id);
-			mdto.setPw(pw);
+			mdto.setPassword(pw);
 			mdto.setPhone(phone);
 			mdto.setEmail(email);
 			mdto.setBirthday(birthday);
 		
 			int temp = sqlsession.insert("members.insertmember",mdto);
+			if( temp ==1 ) {
+				//		System.out.println("insert 성공");
+				return "true";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "false";
+		}
+		return "false";
+	}
+	
+	@RequestMapping(value = "/member/updateProc")
+	@ResponseBody
+	public String memberUpdateProc(Model model, HttpSession session, 
+			@RequestParam("id") String id,
+			@RequestParam("password") String password,
+			@RequestParam("phone") String phone,
+			@RequestParam("email") String email,
+			@RequestParam("birthday") String birthday,
+			HttpServletResponse response) {
+		
+		try {
+			MemberDTO mdto = new MemberDTO();
+			mdto.setId(id);
+			mdto.setPassword(password);
+			mdto.setPhone(phone);
+			mdto.setEmail(email);
+			mdto.setBirthday(birthday);
+		
+			int temp = sqlsession.insert("members.update_member_info",mdto);
 			if( temp ==1 ) {
 				//		System.out.println("insert 성공");
 				return "true";

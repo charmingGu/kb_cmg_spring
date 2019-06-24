@@ -82,7 +82,10 @@ public class StudyBoard_mystudyboardController {
 					}
 					else {
 						System.out.println("array의 idx 값입니다."+array);
-						SBRC_list.add((StudyBoard_RecruitDTO)(sqlsession.selectOne("Study_recruit.Stu_myrequest_list", array)));
+						StudyBoard_RecruitDTO request_list = sqlsession.selectOne("Study_recruit.Stu_myrequest_list", array);
+						if(request_list != null) {
+							SBRC_list.add(request_list);
+						}
 					}
 				}
 				model.addAttribute("SBRCboardListView", SBRC_list);

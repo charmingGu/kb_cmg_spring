@@ -36,11 +36,11 @@
 	</update>
 	
 	<select id="Stu_recruit_select_list" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
-		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=primary_board_idx
+	select * from (select * from studyboard_recruit where idx=primary_board_idx and recruit_complete is null order by idx desc) where rownum between 1 and 10
 	</select>
 	
 	<select id="Stu_myrecruit_list" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
-		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=primary_board_idx and id=#{id} and recruit_complete is null
+	select * from ( select rownum rnum, b.* from (select * from studyboard_recruit where id=#{id} and idx=primary_board_idx and recruit_complete is null order by idx desc) b ) where rnum between 1 and 10
 	</select>
 	
 	<select id="Stu_mycomplete_list" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
@@ -54,7 +54,7 @@
 <!-- 	or idx=primary_board_idx and recruit_complete is not null and member_list like #{id}% -->
 	
 	<select id="Stu_myrequest_list" parameterType="java.lang.String" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
-		select * from (select * from studyboard_recruit order by idx desc) where rownum between 1 and 10 and idx=#{idx} and primary_board_idx=#{idx}
+		select * from studyboard_recruit where idx=#{idx} and primary_board_idx=#{idx} and recruit_complete is null order by idx desc
 	</select>
 	
 	<select id="Stu_recruit_STRQ_list" parameterType="java.lang.Integer" resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
@@ -71,12 +71,12 @@
 	
 	<select id="Stu_recruit_select_pluslist" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_Recruit_plusDTO"
 	resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
-		select * from ( select rownum rnum, b.* from (select * from studyboard_recruit order by idx desc) b ) where rnum between #{start_view} and #{view_point} and idx=primary_board_idx
+		select * from ( select rownum rnum, b.* from (select * from studyboard_recruit where idx=primary_board_idx and recruit_complete is null order by idx desc) b ) where rnum between #{start_view} and #{view_point}
 	</select>
 	
 	<select id="Stu_recruit_mystuboard_pluslist" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_Recruit_plusDTO"
 	resultType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
-		select * from ( select rownum rnum, b.* from (select * from studyboard_recruit where id=#{member_id} order by idx desc) b ) where rnum between #{start_view} and #{view_point} and idx=primary_board_idx
+		select * from ( select rownum rnum, b.* from (select * from studyboard_recruit where id=#{member_id} and idx=primary_board_idx and recruit_complete is null order by idx desc) b ) where rnum between #{start_view} and #{view_point}
 	</select>
 	
 	<select id="Stu_recruit_select_readcont" parameterType="Integer"
