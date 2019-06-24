@@ -171,7 +171,9 @@
 							    		<c:choose>
 									    	<c:when test="${item ne 'null' and item ne ''}">
 										    	<span style="margin-left:10px;">${item}</span>
-										    	<button class="badge badge-danger ban" style="margin-left:3px;" idx="${dto.idx}">퇴출</button>
+										    	<c:if test="${dto.id eq sessionScope.mb_db.id}">
+										    		<button class="badge badge-danger ban" style="margin-left:3px;" idx="${dto.idx}">퇴출</button>
+										    	</c:if>
 										    	<br>
 									    	</c:when>
 									    	<c:when test="${item eq ''}">
