@@ -1,5 +1,6 @@
 package com.ChaMg.MyProJect.Members;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
@@ -170,5 +171,33 @@ public class MemberController {
 			return "true";
 		}
 		return "IdontKnow";
+	}
+	
+	@RequestMapping(value = "/member/admin_manage")
+	public String member_manage(Model model, HttpSession session, 
+			HttpServletResponse response) {
+		try {
+			List<MemberDTO> member_table = sqlsession.selectList("members.selectAll");
+			session.setAttribute("member_table", member_table);
+			return "/admin/member_manage";
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "/";
+		}
+	}
+	
+	@RequestMapping(value = "/member/admin_delete")
+	@ResponseBody
+	public String member_delete(Model model, HttpSession session, 
+			@RequestParam("id") String id,
+			HttpServletResponse response) {
+		try {
+			int delete_member = sqlsession.delete("members.deleteMember", id);
+			int delete_SCboard = sqlsession.delete("Study_recruit.Stu_recruit_deleteAll", id);
+			return "true";
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "false";
+		}
 	}
 }

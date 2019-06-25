@@ -196,7 +196,7 @@
 	                <br>
 	              	<!-- 문제 발생. 회원인지 아닌지 단순히 게시판 id만 보고 비교하는건 무의미. 테이블에 회원/비회원 작성인지 구분할 수 있는 속성 추가하고 그걸로 and 비교해야함. -->
 	              	<c:choose>
-						<c:when test="${sessionScope.mb_db.id eq FBboardReadCont.id && FBboardReadCont.mb_check eq 'mb'}">
+						<c:when test="${sessionScope.mb_db.id eq FBboardReadCont.id && FBboardReadCont.mb_check eq 'mb' || sessionScope.mb_db.id eq 'admin'}">
 							<a href="/freeboard/freeboardchangecont/${FBboardReadCont.idx}">
 	                			<span class="btn btn-primary">수정</span>
 	              			</a>

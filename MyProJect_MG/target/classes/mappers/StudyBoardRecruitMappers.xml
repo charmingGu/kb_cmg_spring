@@ -7,6 +7,10 @@
 	<delete id="Stu_recruit_delete_form" parameterType="java.lang.Integer">
 		delete from studyboard_recruit where idx=#{idx} or primary_board_idx=#{idx}
 	</delete>
+	
+	<delete id="Stu_recruit_deleteAll" parameterType="java.lang.String">
+		delete from studyboard_recruit where id=#{id}
+	</delete>
 
 	<insert id="Stu_recruit_insert_form" parameterType="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitDTO">
 		insert into studyboard_recruit
