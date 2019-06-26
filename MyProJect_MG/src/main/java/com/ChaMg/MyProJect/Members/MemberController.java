@@ -47,11 +47,12 @@ public class MemberController {
 	@RequestMapping(value = "/member/loginProc")
 	public String loginProc(Model model, HttpSession session, MemberDTO mdto) {
 		MemberDTO mb_db = (MemberDTO) sqlsession.selectOne("members.selectlogin", mdto);
-		
+		model.addAttribute("logininfo","");
 		if( mdto != null && mb_db !=null) {
 			if( mdto.getEmail().equals( mb_db.getEmail() ) ) {
 				session.setAttribute("mb_db", mb_db);
 				session.setAttribute("mb_id", mb_db.getId());
+				model.addAttribute("logininfo","");
 			}
 		}else {
 			model.addAttribute("logininfo","아이디나 비밀번호를 확인해주세요.");

@@ -47,6 +47,7 @@
                       <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
                     </div>
                     <div class="form-group">
+                      <h6 style="color:red;">${logininfo}</h6>
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" name="saveCheck">
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
