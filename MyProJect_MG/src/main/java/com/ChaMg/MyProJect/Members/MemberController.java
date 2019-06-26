@@ -52,7 +52,6 @@ public class MemberController {
 			if( mdto.getEmail().equals( mb_db.getEmail() ) ) {
 				session.setAttribute("mb_db", mb_db);
 				session.setAttribute("mb_id", mb_db.getId());
-				model.addAttribute("logininfo","");
 			}
 		}else {
 			model.addAttribute("logininfo","아이디나 비밀번호를 확인해주세요.");
