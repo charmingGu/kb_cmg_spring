@@ -227,7 +227,7 @@
 				</div>
 				<br>
 				<div class="col-sm-8 read_button">
-				<c:if test="${not empty sessionScope.mb_db.id and read_rc_cont.id eq sessionScope.mb_db.id}">
+				<c:if test="${not empty sessionScope.mb_db.id and read_rc_cont.id eq sessionScope.mb_db.id or sessionScope.mb_db.id eq 'admin'}">
 					<a  href="/studyboard_recruit/studyboard_recruit_change_cont/${read_rc_cont.idx}" class="submit">
 						<button class="btn btn-primary">수정</button>
 					</a>
