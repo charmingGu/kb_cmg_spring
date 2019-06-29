@@ -30,12 +30,14 @@ public class MemberController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
+	 * 로그인 화면으로 이동시켜주는 기능.
 	 */
 	@RequestMapping(value = "/member/login")
 	public String login(Locale locale, Model model) {
 		return "/member/login";
 	}
 	
+//	내 회원정보를 볼 수 있게 해주는 기능.
 	@RequestMapping(value = "/member/myProfile/{id}")
 	public String myProfile(Locale locale, Model model, HttpSession session, @PathVariable(value = "id") String id) {
 //		System.out.println(id);
@@ -44,6 +46,7 @@ public class MemberController {
 		return "/member/member_update";
 	}
 	
+//	로그인 로직을 수행하는 기능.비밀번호와 Email을 체크한다. 체크는 Sql문에서 수행한다.
 	@RequestMapping(value = "/member/loginProc")
 	public String loginProc(Model model, HttpSession session, MemberDTO mdto) {
 		MemberDTO mb_db = (MemberDTO) sqlsession.selectOne("members.selectlogin", mdto);
@@ -60,6 +63,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+//	로그아웃 기능을 수행.
 	@RequestMapping(value = "/member/logoutProc")
 	public String logoutProc(Model model, HttpSession session) {
 		session.setAttribute("mb_db", null);
@@ -67,16 +71,19 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+//	패스워드 찾기 기능을 수행.
 	@RequestMapping(value = "/member/forgotpassword")
 	public String forgotpassword(Locale locale, Model model) {
 		return "/member/forgotpassword";
 	}
 	
+//	회원가입 화면으로 이동하는 기능.
 	@RequestMapping(value = "/member/join")
 	public String joinview(Locale locale, Model model) {
 		return "/member/join";
 	}
 	
+//	회원가입 로직을 처리하는 기능.
 	@RequestMapping(value = "/member/joinProc")
 	@ResponseBody
 	public String joinProc(Model model, HttpSession session, 
@@ -107,6 +114,7 @@ public class MemberController {
 		return "false";
 	}
 	
+//	회원 수정을 수행하는 기능.
 	@RequestMapping(value = "/member/updateProc")
 	@ResponseBody
 	public String memberUpdateProc(Model model, HttpSession session, 
@@ -137,6 +145,7 @@ public class MemberController {
 		return "false";
 	}
 	
+//	회원가입시 아이디가 중복인지 검사하는 기능.
 	@RequestMapping(value = "/member/id_check")
 	@ResponseBody
 	public String id_check(Model model, HttpSession session, 
@@ -155,6 +164,7 @@ public class MemberController {
 		return "IdontKnow";
 	}
 	
+//	회원가입이 이메일이 중복인지 체크하는 기능.
 	@RequestMapping(value = "/member/email_check")
 	@ResponseBody
 	public String email_check(Model model, HttpSession session, 
@@ -173,6 +183,7 @@ public class MemberController {
 		return "IdontKnow";
 	}
 	
+//	회원관리를 위한 관리자 페이지 이동 기능.
 	@RequestMapping(value = "/member/admin_manage")
 	public String member_manage(Model model, HttpSession session, 
 			HttpServletResponse response) {
@@ -186,6 +197,7 @@ public class MemberController {
 		}
 	}
 	
+//	회원관리를 위한 관리자 모드 기능.(회원 삭제)
 	@RequestMapping(value = "/member/admin_delete")
 	@ResponseBody
 	public String member_delete(Model model, HttpSession session, 

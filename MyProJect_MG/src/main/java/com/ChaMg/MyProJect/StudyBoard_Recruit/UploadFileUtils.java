@@ -54,7 +54,7 @@ public class UploadFileUtils {
 		return uploadedFileName;
 	}//
 	
-	//폴더 생성 함수
+	//이미지 폴더 생성 함수(사용하지 않음.)
 	@SuppressWarnings("unused")
 	private static String calcPath(String uploadPath) {
 		
@@ -72,7 +72,7 @@ public class UploadFileUtils {
 		return uploadPath;
 	}//calcPath
 	
-	//폴더 생성 함수
+	//이미지 폴더 생성 함수
 	private static void makeDir(String uploadPath) {
 		
 		if(new File(uploadPath).exists()) {

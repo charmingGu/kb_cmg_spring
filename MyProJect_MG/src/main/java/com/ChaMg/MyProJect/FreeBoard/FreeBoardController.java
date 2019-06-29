@@ -29,6 +29,7 @@ public class FreeBoardController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+//	자유게시판 목록들을 보여주는 기능.
 	@RequestMapping(value = "/freeboard/freeboardindex")
 	public String freeboard_index(Locale locale, Model model) {
 		List<FreeBoardDTO> FB_list = sqlsession.selectList("freeboard.FreeBoard_ListAll");
@@ -36,6 +37,7 @@ public class FreeBoardController {
 		return "/freeboard/freeboardindex";
 	}
 
+//	자유게시판의 내용을 보여주는 기능. 본문과 댓글을 보여준다.
 	@RequestMapping(value = "/freeboard/freeboardreadcont/{idx}")
 	public String freeboard_read_cont(Locale locale, Model model, @PathVariable(value = "idx") int idx) {
 		int FB_cnt_update = sqlsession.update("freeboard.FreeBoard_cnt_update", idx);
@@ -47,6 +49,7 @@ public class FreeBoardController {
 		return "/freeboard/freeboardreadcont";
 	}
 
+//	좋아요 기능. 데이터베이스의 속성을 불러와 리스트로 변환하여 체크한 사람인지 검사한다. 체크한 사람이면 좋아요가 다시 내려간다.
 	@RequestMapping(value = "/freeboard/freeboard_good_cnt_update")
 	@ResponseBody
 	public String freeboard_update_good_cnt(Model model, @RequestParam("idx") int idx, @RequestParam("id") String id,
@@ -68,7 +71,8 @@ public class FreeBoardController {
 			return "IdontKnow";
 		}
 	}
-
+	
+//  싫어요 기능. 데이터베이스의 속성을 불러와 리스트로 변환하여 체크한 사람인지 검사한다. 체크한 사람이면 싫어요가 다시 내려간다.
 	@RequestMapping(value = "/freeboard/freeboard_bad_cnt_update")
 	@ResponseBody
 	public String freeboard_update_bad_cnt(Model model, @RequestParam("idx") int idx, @RequestParam("id") String id,
@@ -93,6 +97,7 @@ public class FreeBoardController {
 		}
 	}
 
+//	자유게시판의 내용을 수정할 수 있게 해주는 기능.
 	@RequestMapping(value = "/freeboard/freeboardchangecont/{idx}")
 	public String freeboard_change_cont(Locale locale, Model model, @PathVariable(value = "idx") int idx) {
 		FreeBoardDTO FB_change = sqlsession.selectOne("freeboard.FreeBoard_ReadCont", idx);
@@ -100,11 +105,13 @@ public class FreeBoardController {
 		return "freeboard/freeboardchangecont";
 	}
 
+//	자유게시판의 내용을 쓸 수 있는 뷰로 이동시켜주는 기능.
 	@RequestMapping(value = "/freeboard/freeboardwritecont")
 	public String freeboard_write_Cont(Locale locale, Model model) {
 		return "/freeboard/freeboardwritecont";
 	}
 
+//	자유게시판의 내용을 쓸 수 있게 해주는 기능.(회원 전용)
 	@RequestMapping(value = "/freeboard/mb_freeboardwrite")
 	public String mb_freeboard_write(Locale locale, Model model, FreeBoardDTO fb_dto) {
 		fb_dto.password = "12345"; // 회원들의 디폴트 비밀번호는 웹브라우저의 개발도구(f12)상에서 노출되기 때문에 서버측에서 바꾸어 줘야함.
@@ -117,6 +124,7 @@ public class FreeBoardController {
 		return "/freeboard/freeboardwritecont";
 	}
 
+//	자유게시판의 내용을 쓸 수 있게 해주는 기능.(비회원)
 	@RequestMapping(value = "/freeboard/nmb_freeboardwrite")
 	public String nmb_freeboard_write(Locale locale, Model model, FreeBoardDTO fb_dto) {
 		int temp = sqlsession.insert("freeboard.FreeBoard_InsertCont_nmb", fb_dto);
@@ -129,6 +137,7 @@ public class FreeBoardController {
 		return "/freeboard/freeboardwritecont";
 	}
 	
+//	자유게시판의 댓글을 작성할 수 있게 해주는 기능.
 	@RequestMapping(value = "/freeboard/reply_freeboardwrite")
 	@ResponseBody
 	public String mb_freeboard_reply_write_Test(Model model,
@@ -152,6 +161,7 @@ public class FreeBoardController {
 		}
 	}
 
+//	자유게시판의 대댓글을 작성할 수 있게 해주는 기능.
 	@RequestMapping(value = "/freeboard/re_reply_freeboardwrite")
 	@ResponseBody
 	public String mb_freeboard_re_reply_write(Model model,
@@ -177,6 +187,7 @@ public class FreeBoardController {
 		}
 	}
 
+//	자유게시판의 내용을 수정할 수 있게 해주는 기능.(회원)
 	@RequestMapping(value = "/freeboard/freeboard_update_mb")
 	public String freeboard_uqdate_mb(Locale locale, Model model, FreeBoardDTO chg_dto) {
 		int FB_update = sqlsession.update("freeboard.FreeBoard_update_mb", chg_dto);
@@ -184,6 +195,7 @@ public class FreeBoardController {
 		return "redirect:/freeboard/freeboardindex";
 	}
 
+//	자유게시판의 내용을 수정할 수 있게 해주는 기능.(비회원)
 	@RequestMapping(value = "/freeboard/freeboard_update_nmb")
 	public String freeboard_uqdate_nmb(Locale locale, Model model, FreeBoardDTO chg_dto) {
 		int FB_update = sqlsession.update("freeboard.FreeBoard_update_nmb", chg_dto);
@@ -191,6 +203,7 @@ public class FreeBoardController {
 		return "redirect:/freeboard/freeboardindex";
 	}
 
+//	자유게시판의 내용을 삭제할 수 있게 해주는 기능.
 	@RequestMapping(value = "/freeboard/freeboard_delete/{idx}")
 	public String freeboard_delete(Locale locale, Model model, @PathVariable int idx) {
 		int FB_delete = sqlsession.delete("freeboard.FreeBoard_delete", idx);
@@ -198,7 +211,7 @@ public class FreeBoardController {
 		return "redirect:/freeboard/freeboardindex";
 	}
 
-	
+//	자유게시판의 댓글을 삭제할 수 있게 해주는 기능.
 	@RequestMapping(value = "/freeboard/freeboard_delete_reply")
 	@ResponseBody 
 	public String freeboard_delete_reply(@RequestParam("idx") int idx, HttpServletResponse response) throws IOException{ 
@@ -216,7 +229,7 @@ public class FreeBoardController {
 		return "FB_delete";
 	}
 	 
-
+//	삭제 또는 수정시에 필요한 패스워드를 체크하는 기능.
 	@RequestMapping(value = "/freeboard/freeboardpscheck")
 	@ResponseBody
 	public String freeboardpscheck(@RequestParam("idx") int idx, @RequestParam("password") String password,

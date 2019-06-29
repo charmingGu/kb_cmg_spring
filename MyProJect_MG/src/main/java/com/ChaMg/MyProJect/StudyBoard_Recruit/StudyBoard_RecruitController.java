@@ -35,6 +35,7 @@ public class StudyBoard_RecruitController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
+	 * 모집중인 게시판을 보여주는 페이지로 이동.
 	 */
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_list")
 	public String studyrecruit_index(Locale locale, Model model) {
@@ -43,6 +44,7 @@ public class StudyBoard_RecruitController {
 		return "/studyboard_recruit/studyboard_recruit_list";
 	}
 
+//	모집중인 게시판 리스트의 더 보기 기능.(10개씩 로드)
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_pluslist")
 	@ResponseBody
 	public List<StudyBoard_RecruitDTO> studyrecruit_plusindex(Locale locale, Model model, 
@@ -56,6 +58,7 @@ public class StudyBoard_RecruitController {
 		return SBRC_pluslist;
 	}
 	
+//	마음에 드는 스터디 게시판의 스터디에 신청하기 기능.(이미 신청한 게시판인지 체크)
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_join")
 	@ResponseBody
 	public String studyrecruit_join(Locale locale, Model model, 
@@ -91,11 +94,13 @@ public class StudyBoard_RecruitController {
 		}
 	}
 	
+//	스터디 게시판을 작성하는 페이지로 이동.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_form", method = RequestMethod.GET)
 	public String make_form(Locale locale, Model model) {
 		return "/studyboard_recruit/recruit_make_form";
 	}
 	
+//	스터디 게시판의 내용을 보여주는 기능.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_readcont/{idx}", method = RequestMethod.GET)
 	public String read_cont(Locale locale, Model model, @PathVariable(value = "idx") int idx) {
 		StudyBoard_RecruitDTO read_content = sqlsession.selectOne("Study_recruit.Stu_recruit_select_readcont", idx);
@@ -105,6 +110,7 @@ public class StudyBoard_RecruitController {
 		return "/studyboard_recruit/recruit_read_content";
 	}
 	
+//	스터디 게시판의 내용을 수정하는 페이지로 이동하는 기능.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_change_cont/{idx}", method = RequestMethod.GET)
 	public String change_cont(Locale locale, Model model, @PathVariable(value = "idx") int idx) {
 		StudyBoard_RecruitDTO change_content = sqlsession.selectOne("Study_recruit.Stu_recruit_select_readcont", idx);
@@ -112,6 +118,7 @@ public class StudyBoard_RecruitController {
 		return "/studyboard_recruit/recruit_change_cont";
 	}
 	
+//	스터디 게시판의 내용을 삭제하는 기능.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_delete")
 	@ResponseBody
 	public String studyboard_RCdelete(Locale locale, Model model, @RequestParam("idx") int idx) {
@@ -119,6 +126,7 @@ public class StudyBoard_RecruitController {
 		return "true";
 	}
 	
+//	스터디 게시판 작성을 위한 데이터 제출 기능.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_submit")
 	@ResponseBody
 	public String studyboard_recruit_submit(Model model,
@@ -151,6 +159,7 @@ public class StudyBoard_RecruitController {
 		}
 	}
 	
+//	스터디 게시판의 내용을 수정하는 기능.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_recruit_update")
 	@ResponseBody
 	public String studyboard_recruit_update(Model model,
@@ -185,6 +194,7 @@ public class StudyBoard_RecruitController {
 		}
 	}
 	
+//	스터디 게시판의 댓글 작성 기능.
 	@RequestMapping(value = "/studyboard_recruit/reply_SBRCboardwrite")
 	@ResponseBody
 	public String reply_SBRCboardwrite(Model model,
@@ -205,6 +215,7 @@ public class StudyBoard_RecruitController {
 		}
 	}
 	
+//	스터디 게시판의 대댓글 작성 기능.
 	@RequestMapping(value = "/studyboard_recruit/re_reply_SBRCboardwrite")
 	@ResponseBody
 	public String re_reply_SBRCboardwrite(Model model,
@@ -227,6 +238,7 @@ public class StudyBoard_RecruitController {
 		}
 	}
 	
+//	스터디 게시판의 댓글을 삭제하는 기능.
 	@RequestMapping(value = "/studyboard_recruit/reply_delete_SBRCboardwrite")
 	@ResponseBody 
 	public String SBRCboard_delete_reply(@RequestParam("idx") int idx, HttpServletResponse response) throws IOException{ 
@@ -235,6 +247,7 @@ public class StudyBoard_RecruitController {
 		return "SBRCboard_reply_delete";
 	}
 	
+//	스터디 게시판의 좋아요 기능.
 	@RequestMapping(value = "/studyboard_recruit/SBRCboard_good_cnt_update")
 	@ResponseBody
 	public String studyboard_update_good_cnt(Model model, @RequestParam("idx") int idx, @RequestParam("id") String id,
@@ -255,6 +268,7 @@ public class StudyBoard_RecruitController {
 		}
 	}
 
+//	스터디 게시판의 싫어요 기능.
 	@RequestMapping(value = "/studyboard_recruit/SBRCboard_bad_cnt_update")
 	@ResponseBody
 	public String studyboard_update_bad_cnt(Model model, @RequestParam("idx") int idx, @RequestParam("id") String id,

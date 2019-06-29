@@ -1,5 +1,6 @@
 package com.ChaMg.MyProJect.StudyBoard_Recruit;
 
+//	완료된 내 스터디 게시판의 멤버를 저장
 public class mystudy_complete_list_DTO {
 	String id;
 	String member_id;

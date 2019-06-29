@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.ChaMg.MyProJect.NoticeBoard.NoticeBoardController" project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/NoticeBoard/NoticeBoardController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="170" y="144"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_RecruitController" 
+    project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/StudyBoard_Recruit/StudyBoard_RecruitController.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="369" width="414" x="17" y="287"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.ChaMg.MyProJect.StudyBoard_Recruit.MediaUtils" project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/StudyBoard_Recruit/MediaUtils.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="443" y="83"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.ChaMg.MyProJect.HomeController" project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/HomeController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="423" y="213"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.ChaMg.MyProJect.FreeBoard.FreeBoardController" project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/FreeBoard/FreeBoardController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="664" y="509"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.ChaMg.MyProJect.StudyBoard_Recruit.UploadFileUtils" project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/StudyBoard_Recruit/UploadFileUtils.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="648" y="171"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.ChaMg.MyProJect.Members.MemberController" project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/Members/MemberController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="333" width="354" x="1086" y="24"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.ChaMg.MyProJect.StudyBoard_Recruit.StudyBoard_mystudyboardController" 
+    project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/StudyBoard_Recruit/StudyBoard_mystudyboardController.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="289" width="364" x="904" y="409"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.ChaMg.MyProJect.StudyBoard_Recruit.UploadController" project="MyProJect_MG" 
+    file="/MyProJect_MG/src/main/java/com/ChaMg/MyProJect/StudyBoard_Recruit/UploadController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="920" y="158"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

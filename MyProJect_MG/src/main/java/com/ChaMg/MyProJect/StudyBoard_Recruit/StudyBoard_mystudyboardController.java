@@ -33,6 +33,7 @@ public class StudyBoard_mystudyboardController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
+	 * 내가 모집중인 스터디 게시판의 목록을 보여줌.
 	 */
 	@RequestMapping(value = "/studyboard_MyBoard/studyboard_myrecruit_list", method = RequestMethod.GET)
 	public String myRecruitList(Locale locale, HttpSession session, Model model) {
@@ -48,6 +49,7 @@ public class StudyBoard_mystudyboardController {
 		}
 	}
 	
+//	내가 완료한 스터디 게시판의 목록을 보여줌.
 	@RequestMapping(value = "/studyboard_MyBoard/studyboard_mycompleted_list", method = RequestMethod.GET)
 	public String mycomplete(Locale locale, HttpSession session, Model model) {
 		try {
@@ -64,6 +66,7 @@ public class StudyBoard_mystudyboardController {
 		}
 	}
 	
+//	내가 신청한 스터디 게시판의 목록을 보여줌.
 	@RequestMapping(value = "/studyboard_MyBoard/studyboard_myrequest_list")
 	public String myRequestList(Locale locale, HttpSession session, Model model) {
 		try {
@@ -98,6 +101,7 @@ public class StudyBoard_mystudyboardController {
 		}
 	}
 	
+//	내가 모집중인 스터디 게시판 목록의 더 보기 기능.(10개씩 로드)
 	@RequestMapping(value = "/studyboard_recruit/studyboard_myrecruit_pluslist")
 	@ResponseBody
 	public List<StudyBoard_RecruitDTO> studyrecruit_myRecruitPlusIndex(Locale locale, Model model, 
@@ -113,6 +117,7 @@ public class StudyBoard_mystudyboardController {
 		return SBRC_pluslist;
 	}
 	
+//	내가 신청한 스터디 게시판 목록의 더 보기 기능.(10개씩 로드)
 	@RequestMapping(value = "/studyboard_recruit/studyboard_myrequest_pluslist")
 	@ResponseBody
 	public List<StudyBoard_RecruitDTO> studyrecruit_myRequestPlusIndex(Locale locale, Model model, 
@@ -128,6 +133,7 @@ public class StudyBoard_mystudyboardController {
 		return SBRC_pluslist;
 	}
 	
+//	내가 신청한 스터디 게시판의 신청을 취소하는 기능.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_myrequest_cancel")
 	@ResponseBody
 	public String studyrecruit_myRequestCancel(Locale locale, Model model, 
@@ -171,6 +177,7 @@ public class StudyBoard_mystudyboardController {
 		return "true";
 	}
 	
+//	내가 모집중인 스터디 게시판의 신청자들을 멤버로 추가하는 기능.(신청자 -> 멤버)
 	@RequestMapping(value = "/studyboard_recruit/studyboard_mycompleted_add")
 	@ResponseBody
 	public String studyrecruit_myCompleted_add(Locale locale, Model model, 
@@ -191,6 +198,7 @@ public class StudyBoard_mystudyboardController {
 		}
 	}
 	
+//	DB의 완료목록리스트에 현재 게시판을 추가.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_mycompleted_added")
 	@ResponseBody
 	public String studyrecruit_myCompleted_added(Locale locale, Model model, 
@@ -206,6 +214,7 @@ public class StudyBoard_mystudyboardController {
 		
 	}
 	
+//	완료된 내 스터디 게시판의 멤버를 퇴출하는 기능.
 	@RequestMapping(value = "/studyboard_recruit/studyboard_myrequest_ban")
 	@ResponseBody
 	public String studyrecruit_myRequestBan(Locale locale, Model model, 
