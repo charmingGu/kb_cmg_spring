@@ -202,10 +202,17 @@ public class MemberController {
 	@ResponseBody
 	public String member_delete(Model model, HttpSession session, 
 			@RequestParam("id") String id,
+			@RequestParam("mb_check") String mb_check,
 			HttpServletResponse response) {
+		System.out.println(mb_check);
 		try {
 			int delete_member = sqlsession.delete("members.deleteMember", id);
 			int delete_SCboard = sqlsession.delete("Study_recruit.Stu_recruit_deleteAll", id);
+			if(mb_check.equals("mb")) {
+				System.out.println("회원임");
+				session.setAttribute("mb_db", null);
+				session.setAttribute("mb_id", null);
+			}
 			return "true";
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -33,11 +33,12 @@
 		  $(".admin_delete").click(function(){
 			  var id = $(this).attr("member_id");
 			  var result = confirm('정말 회원을 삭제하시겠습니까?');
+			  var mb_check = 'ad';
 			  if(result){
 				  $.ajax({
 						type:"POST",
 						url:"/member/admin_delete",
-						data : {id:id},
+						data : {id:id, mb_check:mb_check},
 						success: function(response){
 							if(response=="true"){
 								alert("삭제 성공");

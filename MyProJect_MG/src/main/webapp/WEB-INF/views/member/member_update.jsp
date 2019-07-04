@@ -53,6 +53,29 @@
 				});
 		  }
 		});
+	  
+	  $("#bye_bye").click(function(){
+		  var id = $(this).attr("member_id");
+		  var result = confirm('정말 탈퇴하시겠습니까?');
+		  var mb_check = 'mb';
+		  if(result){
+			  $.ajax({
+					type:"POST",
+					url:"/member/admin_delete",
+					data : {id:id, mb_check:mb_check},
+					success: function(response){
+						if(response=="true"){
+							alert("삭제 성공");
+							window.location.href="/";
+						}
+						else{
+							alert("삭제 실패");
+							window.location.reload();
+						}
+					}
+				});
+		  }
+		});
   });
   </script>
 
@@ -112,6 +135,7 @@
 				<a class="cancel" href="/">
 					<span class="btn btn-primary">취소</span>
 				</a>
+				<button id="bye_bye" class="btn btn-danger" member_id="${memberInfo.id}">회원탈퇴</button>
           	</div>
           </div>
         </div>
